@@ -37,7 +37,7 @@ const addCharacter = async (ctx) => {
     !warnings
   ) {
     response(ctx, 404, {
-      mensagem: "It's not possible to add an empty character.",
+      message: "It's not possible to add an empty character.",
     });
   }
 
