@@ -19,6 +19,7 @@ router.post("/characters", Characters.addCharacter);
 router.put("/characters/:id", Characters.updateCharacter);
 router.get("/characters/:id", Characters.getCharacter);
 router.get("/characters", Characters.getAllCharacters);
+router.get("/characters/random", Characters.getRandomCharacter);
 
 // stories
 

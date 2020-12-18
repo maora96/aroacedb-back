@@ -144,9 +144,19 @@ const getAllCharacters = async (ctx) => {
   }
 };
 
+const getRandomCharacter = async (ctx) => {
+  const character = await Characters.getRandomCharacter();
+  if (character) {
+    response(ctx, 200, { character: character });
+  } else {
+    response(ctx, 404, { message: "No character found." });
+  }
+};
+
 module.exports = {
   addCharacter,
   updateCharacter,
   getCharacter,
   getAllCharacters,
+  getRandomCharacter,
 };

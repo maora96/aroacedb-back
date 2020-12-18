@@ -74,10 +74,20 @@ const searchCharacters = async (search) => {
   return query.rows;
 };
 
+const getRandomCharacter = async () => {
+  const q = {
+    text: "select * from characters order by random() limit 1",
+  };
+
+  const query = await database.query(q);
+  return query.rows;
+};
+
 module.exports = {
   addCharacter,
   getCharacter,
   getAllCharacters,
   updateCharacter,
   searchCharacters,
+  getRandomCharacter,
 };
