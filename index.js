@@ -1,6 +1,7 @@
 const Koa = require("koa");
 const bodyparser = require("koa-bodyparser");
 
+const PORT = process.env.PORT || 8081;
 const server = new Koa();
 const cors = require("@koa/cors");
 const router = require("./src/routes");
@@ -10,7 +11,7 @@ server.use(bodyparser());
 
 server.use(router.routes()).use(router.allowedMethods());
 
-server.listen(8081, () => console.log("no ar"));
+server.listen(PORT, "0.0.0.0", null, () => console.log("no ar"));
 
 /*frontpage:
 - search = by all properties (minus id) [searchCharacters, on click => getCharacter]
