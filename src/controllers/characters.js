@@ -146,6 +146,7 @@ const getAllCharacters = async (ctx) => {
 
 const getRandomCharacter = async (ctx) => {
   const character = await Characters.getRandomCharacter();
+  console.log(character);
   if (character) {
     response(ctx, 200, { character: character });
   } else {
