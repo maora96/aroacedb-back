@@ -11,7 +11,7 @@ server.use(bodyparser());
 
 server.use(router.routes()).use(router.allowedMethods());
 
-server.listen(PORT, "0.0.0.0", null, () => console.log("no ar"));
+server.listen(PORT, "0.0.0.0", null, () => console.log("back working"));
 
 /*frontpage:
 - search = by all properties (minus id) [searchCharacters, on click => getCharacter]
