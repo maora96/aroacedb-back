@@ -80,7 +80,8 @@ const getRandomCharacter = async () => {
   };
 
   const query = await database.query(q);
-  return query.rows;
+  console.log(query.rows[0]);
+  return query.rows[0];
 };
 
 module.exports = {
