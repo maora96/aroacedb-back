@@ -5,6 +5,7 @@ const Auth = require("./controllers/auth");
 const Characters = require("./controllers/characters");
 const Stories = require("./controllers/stories");
 const Reviews = require("./controllers/reviews");
+const Suggest = require("./controllers/suggest");
 
 const Password = require("./middlewares/encrypt");
 const Session = require("./middlewares/session");
@@ -12,6 +13,10 @@ const Session = require("./middlewares/session");
 // auth
 
 router.post("/auth", Auth.authenticate);
+
+// suggestions
+
+router.post("/suggest", Suggest.addCharacter);
 
 // characters
 
