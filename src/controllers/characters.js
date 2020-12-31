@@ -127,14 +127,20 @@ const getCharacter = async (ctx) => {
 };
 
 const getAllCharacters = async (ctx) => {
-  const { search = null } = ctx.query;
+  const { search = null } = ctx.query; //marion angel
+  let one = search.toLowerCase().split(" ");
+  let two = [];
+  for (let i = 0; i < one.length; i++) {
+    two.push(one[i][0].toUpperCase() + one[i].slice(1));
+  }
+  let three = two.join(" ");
 
   let character;
 
   if (!search) {
     character = await Characters.getAllCharacters();
   } else {
-    character = await Characters.searchCharacters(search);
+    character = await Characters.searchCharacters(three);
   }
 
   if (!character) {
