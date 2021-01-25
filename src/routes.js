@@ -34,7 +34,7 @@ router.post("/stories", Stories.addStory);
 
 // reviews
 
-router.get("/reviews/:id", Reviews.getAllReviewsByCharacter);
+router.get("/reviews/character/:id", Reviews.getAllReviewsByCharacter);
 router.put("/reviews/:id", Reviews.updateReview);
 router.post("/reviews", Reviews.addReview);
 
