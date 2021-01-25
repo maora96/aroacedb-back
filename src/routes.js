@@ -28,7 +28,7 @@ router.get("/character", Characters.getRandomCharacter);
 
 // stories
 
-router.get("/stories/:id", Stories.getAllStoriesByCharacter);
+router.get("/stories/character/:id", Stories.getAllStoriesByCharacter);
 router.put("/stories/:id", Stories.updateStory);
 router.post("/stories", Stories.addStory);
 
