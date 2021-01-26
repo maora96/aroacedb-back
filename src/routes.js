@@ -38,4 +38,8 @@ router.get("/reviews/character/:id", Reviews.getAllReviewsByCharacter);
 router.put("/reviews/:id", Reviews.updateReview);
 router.post("/reviews", Reviews.addReview);
 
+// suggest
+
+router.post("/suggest", Suggest.addCharacter);
+
 module.exports = router;
