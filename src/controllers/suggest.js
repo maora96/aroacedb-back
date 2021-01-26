@@ -56,9 +56,7 @@ const addCharacter = async (ctx) => {
   const dbCharacter = await Suggest.addCharacter(character);
 
   response(ctx, 201, {
-    character: {
-      character,
-    },
+    character,
   });
 };
 
