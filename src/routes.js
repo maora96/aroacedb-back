@@ -41,5 +41,6 @@ router.post("/reviews", Reviews.addReview);
 // suggest
 
 router.post("/suggest", Suggest.addCharacter);
+router.get("/suggest/recent", Suggest.getRecentSuggested);
 
 module.exports = router;

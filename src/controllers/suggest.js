@@ -60,6 +60,22 @@ const addCharacter = async (ctx) => {
   });
 };
 
+
+const getRecentSuggested = async (ctx) => {
+    const recentlyAdded = await Suggest.getRecentSuggested();
+    if (recentlyAdded) {
+        response(ctx, 201, {
+            recentlyAdded
+        })
+    } else {
+        response(ctx, 404, {
+            message: "No entries found."
+        })
+    }
+}
+
+
 module.exports = {
   addCharacter,
+  getRecentSuggested
 };

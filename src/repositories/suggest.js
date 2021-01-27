@@ -23,6 +23,15 @@ const addCharacter = async (character) => {
   return query.rows;
 };
 
+const getRecentSuggested = async () => {
+  const q = {
+    text: "SELECT * FROM suggestions ORDER BY id DESC LIMIT 4;",
+  };
+  const query = await database.query(q);
+  return query.rows;
+};
+
 module.exports = {
   addCharacter,
+  getRecentSuggested,
 };
