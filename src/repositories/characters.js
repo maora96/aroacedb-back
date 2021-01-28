@@ -75,11 +75,27 @@ const updateCharacter = async (character) => {
 };
 
 const searchCharacters = async (search) => {
+  const queries = [];
+  search.forEach((s) => {
+    const text = `SELECT * FROM characters WHERE character_name LIKE '%${s}%' OR main_storyseries LIKE '%${s}%' OR author LIKE '%${s}%' OR genre LIKE '%${s}%' OR type_of_rep LIKE '%${s}%' OR gender LIKE '%${s}%' OR importance LIKE '%${s}%' OR sexual_orientation LIKE '%${s}%' OR romantic_orientation LIKE '%${s}%' OR relationships LIKE '%${s}%' OR pairing_qpp_or_romantic LIKE '%${s}%'`;
+    queries.push(text);
+  });
+  const formatted = [];
+
+  queries.forEach((q, i) => {
+    if (i < queries.length - 1) {
+      formatted.push(q + " INTERSECT ");
+    } else {
+      formatted.push(q);
+    }
+  });
+  const final = formatted.join("");
   const q = {
-    text: `SELECT * FROM characters WHERE character_name LIKE '%${search}%' OR main_storyseries LIKE '%${search}%' OR author LIKE '%${search}%' OR genre LIKE '%${search}%' OR type_of_rep LIKE '%${search}%' OR gender LIKE '%${search}%' OR importance LIKE '%${search}%' OR sexual_orientation LIKE '%${search}%' OR romantic_orientation LIKE '%${search}%' OR relationships LIKE '%${search}%' OR pairing_qpp_or_romantic LIKE '%${search}%'`,
+    text: final,
   };
 
   const query = await database.query(q);
+
   return query.rows;
 };
 

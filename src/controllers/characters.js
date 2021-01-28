@@ -136,20 +136,20 @@ const deleteCharacter = async (ctx) => {
 };
 
 const getAllCharacters = async (ctx) => {
-  const { search = null } = ctx.query; //marion angel
+  const { search = null } = ctx.query;
   let one = search.toLowerCase().split(" ");
   let two = [];
   for (let i = 0; i < one.length; i++) {
     two.push(one[i][0].toUpperCase() + one[i].slice(1));
   }
   let three = two.join(" ");
-
+  console.log(one, two, three);
   let character;
 
   if (!search) {
     character = await Characters.getAllCharacters();
   } else {
-    character = await Characters.searchCharacters(three);
+    character = await Characters.searchCharacters(two);
   }
 
   if (!character) {
