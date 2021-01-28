@@ -81,7 +81,7 @@ const searchCharacters = async (search) => {
     queries.push(text);
   });
   const formatted = [];
-
+  console.log(queries);
   queries.forEach((q, i) => {
     if (i < queries.length - 1) {
       formatted.push(q + " INTERSECT ");
