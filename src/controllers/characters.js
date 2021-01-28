@@ -140,7 +140,7 @@ const getAllCharacters = async (ctx) => {
   let one = search.toLowerCase().split(" ");
   let two = [];
   for (let i = 0; i < one.length; i++) {
-    two.push(one[i][0].toUpperCase() + one[i].slice(1));
+    two.push(one[i][0].toUpperCase() + one[i].slice(1).replace(",", ""));
   }
   let three = two.join(" ");
   console.log(one, two, three);
