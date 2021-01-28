@@ -31,7 +31,17 @@ const getRecentSuggested = async () => {
   return query.rows;
 };
 
+const getAllCharacters = async () => {
+  const q = {
+    text: "SELECT * FROM suggestions",
+  };
+
+  const query = await database.query(q);
+  return query.rows;
+};
+
 module.exports = {
   addCharacter,
   getRecentSuggested,
+  getAllCharacters,
 };

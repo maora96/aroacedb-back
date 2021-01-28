@@ -39,6 +39,8 @@ router.post("/reviews", Reviews.addReview);
 
 router.post("/suggest", Suggest.addCharacter);
 router.get("/suggest/recent", Suggest.getRecentSuggested);
+router.get("/suggest/:id", Suggest.getCharacter);
+router.get("/suggest", Suggest.getAllCharacters);
 
 // stats
 router.get("/stats", Stats.getStats);

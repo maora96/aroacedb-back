@@ -60,22 +60,43 @@ const addCharacter = async (ctx) => {
   });
 };
 
-
 const getRecentSuggested = async (ctx) => {
-    const recentlyAdded = await Suggest.getRecentSuggested();
-    if (recentlyAdded) {
-        response(ctx, 201, {
-            recentlyAdded
-        })
-    } else {
-        response(ctx, 404, {
-            message: "No entries found."
-        })
-    }
-}
+  const recentlyAdded = await Suggest.getRecentSuggested();
+  if (recentlyAdded) {
+    response(ctx, 201, {
+      recentlyAdded,
+    });
+  } else {
+    response(ctx, 404, {
+      message: "No entries found.",
+    });
+  }
+};
 
+const getCharacter = async (ctx) => {
+  const { id = null } = ctx.params;
+
+  if (id) {
+    const character = await Characters.getCharacter(id);
+    response(ctx, 201, { character: character });
+  } else {
+    response(ctx, 404, "ID can't be null.");
+  }
+};
+
+const getAllCharacters = async (ctx) => {
+  const characters = await Suggest.getAllCharacters();
+
+  if (!characters) {
+    response(ctx, 404, { message: "No characters found." });
+  } else {
+    response(ctx, 200, { characters: characters });
+  }
+};
 
 module.exports = {
   addCharacter,
-  getRecentSuggested
+  getRecentSuggested,
+  getCharacter,
+  getAllCharacters,
 };
