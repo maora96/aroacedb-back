@@ -84,6 +84,15 @@ const getCharacter = async (ctx) => {
   }
 };
 
+const deleteCharacter = async (ctx) => {
+  const { id = null } = ctx.params;
+
+  if (id) {
+    const character = await Suggest.deleteCharacter(id);
+    response(ctx, 201, { character });
+  }
+};
+
 const getAllCharacters = async (ctx) => {
   const characters = await Suggest.getAllCharacters();
 
@@ -99,4 +108,5 @@ module.exports = {
   getRecentSuggested,
   getCharacter,
   getAllCharacters,
+  deleteCharacter,
 };

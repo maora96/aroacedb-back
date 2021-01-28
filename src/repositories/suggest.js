@@ -49,9 +49,19 @@ const getCharacter = async (id) => {
   return query.rows;
 };
 
+const deleteCharacter = async (id) => {
+  const q = {
+    text: "DELETE FROM suggestions where id = $1 RETURNING *",
+    values: [id],
+  };
+  const query = await database.query(q);
+  return query.rows;
+};
+
 module.exports = {
   addCharacter,
   getRecentSuggested,
   getAllCharacters,
   getCharacter,
+  deleteCharacter,
 };

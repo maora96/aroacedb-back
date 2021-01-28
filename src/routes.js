@@ -22,6 +22,7 @@ router.put("/characters/:id", Characters.updateCharacter);
 router.get("/characters/:id", Characters.getCharacter);
 router.get("/characters", Characters.getAllCharacters);
 router.get("/character", Characters.getRandomCharacter);
+router.delete("/characters/:id", Characters.deleteCharacter);
 
 // stories
 
@@ -41,6 +42,7 @@ router.post("/suggest", Suggest.addCharacter);
 router.get("/suggest/recent", Suggest.getRecentSuggested);
 router.get("/suggest/:id", Suggest.getCharacter);
 router.get("/suggest", Suggest.getAllCharacters);
+router.delete("/suggest/:id", Suggest.deleteCharacter);
 
 // stats
 router.get("/stats", Stats.getStats);

@@ -126,6 +126,15 @@ const getCharacter = async (ctx) => {
   }
 };
 
+const deleteCharacter = async (ctx) => {
+  const { id = null } = ctx.params;
+
+  if (id) {
+    const character = await Characters.deleteCharacter(id);
+    response(ctx, 201, { character });
+  }
+};
+
 const getAllCharacters = async (ctx) => {
   const { search = null } = ctx.query; //marion angel
   let one = search.toLowerCase().split(" ");
@@ -165,4 +174,5 @@ module.exports = {
   getCharacter,
   getAllCharacters,
   getRandomCharacter,
+  deleteCharacter,
 };

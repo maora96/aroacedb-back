@@ -3,7 +3,7 @@ const database = require("../utils/database");
 const addCharacter = async (character) => {
   const q = {
     text:
-      "INSERT INTO characters (id, character_name, main_storyseries, author, genre, type_of_rep, gender, importance,sexual_orientation, romantic_orientation, relationships, pairing_qpp_or_romantic, rep_noteswarnings) VALUES (DEFAULT, $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING *",
+      "INSERT INTO characters (id, character_name, main_storyseries, author, genre, type_of_rep, gender, importance,sexual_orientation, romantic_orientation, relationships, pairing_qpp_or_romantic, rep_noteswarnings) VALUES (DEFAULT, $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *",
     values: [
       character.characterName,
       character.mainStory,
@@ -26,6 +26,15 @@ const addCharacter = async (character) => {
 const getCharacter = async (id) => {
   const q = {
     text: "SELECT * FROM characters where id = $1",
+    values: [id],
+  };
+  const query = await database.query(q);
+  return query.rows;
+};
+
+const deleteCharacter = async (id) => {
+  const q = {
+    text: "DELETE FROM characters where id = $1 returning *",
     values: [id],
   };
   const query = await database.query(q);
@@ -91,4 +100,5 @@ module.exports = {
   updateCharacter,
   searchCharacters,
   getRandomCharacter,
+  deleteCharacter,
 };
