@@ -77,7 +77,7 @@ const getCharacter = async (ctx) => {
   const { id = null } = ctx.params;
 
   if (id) {
-    const character = await Characters.getCharacter(id);
+    const character = await Suggest.getCharacter(id);
     response(ctx, 201, { character: character });
   } else {
     response(ctx, 404, "ID can't be null.");
