@@ -37,7 +37,7 @@ router.delete("/stories/:id", Stories.deleteStory);
 router.get("/reviews/character/:id", Reviews.getAllReviewsByCharacter);
 router.put("/reviews/:id", Reviews.updateReview);
 router.post("/reviews", Reviews.addReview);
-router.delete("/reviews/:id", deleteReview);
+router.delete("/reviews/:id", Reviews.deleteReview);
 
 // suggest
 
