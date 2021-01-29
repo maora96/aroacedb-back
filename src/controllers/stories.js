@@ -4,24 +4,24 @@ const response = require("../controllers/response");
 const addStory = async (ctx) => {
   const {
     character_id = null,
-    title = null,
+    story_title = null,
     series_or_antho = null,
     genre = null,
-    story_length = null,
+    length = null,
     type_of_rep = null,
-    importance = null,
+    character_importance = null,
     rep_noteswarnings = null,
     other_noteswarnings = null,
   } = ctx.request.body;
 
   if (
     !character_id &&
-    !title &&
+    !story_title &&
     !series_or_antho &&
     !genre &&
-    !story_length &&
+    !length &&
     !type_of_rep &&
-    !importance &&
+    !character_importance &&
     !rep_noteswarnings &&
     !other_noteswarnings
   ) {
@@ -30,12 +30,12 @@ const addStory = async (ctx) => {
 
   const story = {
     character_id,
-    title,
+    story_title,
     series_or_antho,
     genre,
-    story_length,
+    length,
     type_of_rep,
-    importance,
+    character_importance,
     rep_noteswarnings,
     other_noteswarnings,
   };
@@ -78,12 +78,12 @@ const deleteStory = async (ctx) => {
 
 const updateStory = async (ctx) => {
   const {
-    title = null,
+    story_title = null,
     series_or_antho = null,
     genre = null,
-    story_length = null,
+    length = null,
     type_of_rep = null,
-    importance = null,
+    character_importance = null,
     rep_noteswarnings = null,
     other_noteswarnings = null,
   } = ctx.request.body;
@@ -96,12 +96,12 @@ const updateStory = async (ctx) => {
     if (story) {
       const update = await stories.updateStory(
         id,
-        title,
+        story_title,
         series_or_antho,
         genre,
-        story_length,
+        length,
         type_of_rep,
-        importance,
+        character_importance,
         rep_noteswarnings,
         other_noteswarnings
       );
