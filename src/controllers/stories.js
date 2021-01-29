@@ -67,6 +67,15 @@ const getAllStoriesByCharacter = async (ctx) => {
   }
 };
 
+const deleteStory = async (ctx) => {
+  const { id = null } = ctx.params;
+
+  if (id) {
+    const story = await stories.deleteStory(id);
+    response(ctx, 201, { story });
+  }
+};
+
 const updateStory = async (ctx) => {
   const {
     title = null,
@@ -110,4 +119,5 @@ module.exports = {
   getStory,
   getAllStoriesByCharacter,
   updateStory,
+  deleteStory,
 };

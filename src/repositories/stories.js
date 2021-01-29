@@ -20,6 +20,15 @@ const addStory = async (story) => {
   return query.rows;
 };
 
+const deleteStory = async (id) => {
+  const q = {
+    text: "DELETE FROM stroies where id = $1 returning *",
+    values: [id],
+  };
+  const query = await database.query(q);
+  return query.rows;
+};
+
 const getStory = async (id) => {
   const q = {
     text: "SELECT * FROM stories where id = $1",
@@ -68,4 +77,10 @@ const updateStory = async (
   return query.rows.shift();
 };
 
-module.exports = { addStory, getStory, getAllStories, updateStory };
+module.exports = {
+  addStory,
+  getStory,
+  getAllStories,
+  updateStory,
+  deleteStory,
+};

@@ -34,6 +34,15 @@ const getAllReviews = async (id) => {
   return query.rows;
 };
 
+const deleteReview = async (id) => {
+  const q = {
+    text: "DELETE FROM reviews where id = $1 returning *",
+    values: [id],
+  };
+  const query = await database.query(q);
+  return query.rows;
+};
+
 const updateReview = async (
   id,
   character_id,
@@ -51,4 +60,10 @@ const updateReview = async (
   return query.rows.shift();
 };
 
-module.exports = { addReview, getReview, getAllReviews, updateReview };
+module.exports = {
+  addReview,
+  getReview,
+  getAllReviews,
+  updateReview,
+  deleteReview,
+};

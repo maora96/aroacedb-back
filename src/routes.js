@@ -26,15 +26,18 @@ router.delete("/characters/:id", Characters.deleteCharacter);
 
 // stories
 
+router.get("/stories/:id", Stories.getStory);
 router.get("/stories/character/:id", Stories.getAllStoriesByCharacter);
 router.put("/stories/:id", Stories.updateStory);
 router.post("/stories", Stories.addStory);
+router.delete("/stories/:id", Stories.deleteStory);
 
 // reviews
 
 router.get("/reviews/character/:id", Reviews.getAllReviewsByCharacter);
 router.put("/reviews/:id", Reviews.updateReview);
 router.post("/reviews", Reviews.addReview);
+router.delete("/reviews/:id", deleteReview);
 
 // suggest
 
