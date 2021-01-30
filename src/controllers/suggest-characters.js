@@ -1,5 +1,5 @@
-const Suggest = require("../repositories/suggest");
-const response = require("../controllers/response");
+const Suggest = require("../repositories/suggest-characters");
+const response = require("./response");
 
 const addCharacter = async (ctx) => {
   // const userID = ctx.state.userID

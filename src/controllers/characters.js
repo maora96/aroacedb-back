@@ -4,37 +4,33 @@ const response = require("../controllers/response");
 const addCharacter = async (ctx) => {
   // const userID = ctx.state.userID
   const {
-    characterName = null,
-    mainStory = null,
+    character_name = null,
+    main_storyseries = null,
     author = null,
     genre = null,
-    stories = null,
-    reviews = null,
-    typeOfRep = null,
+    type_of_rep = null,
     gender = null,
     importance = null,
-    sexualOrientation = null,
-    romanticOrientation = null,
+    sexual_orientation = null,
+    romantic_orientation = null,
     relationships = null,
-    pairing = null,
-    warnings = null,
+    pairing_qpp_or_romantic = null,
+    rep_noteswarnings = null,
   } = ctx.request.body;
 
   if (
-    !characterName &&
-    !mainStory &&
+    !character_name &&
+    !main_storyseries &&
     !author &&
     !genre &&
-    !stories &&
-    !reviews &&
-    !typeOfRep &&
+    !type_of_rep &&
     !gender &&
     !importance &&
-    !sexualOrientation &&
-    !romanticOrientation &&
+    !sexual_orientation &&
+    !romantic_orientation &&
     !relationships &&
-    !pairing &&
-    !warnings
+    !pairing_qpp_or_romantic &&
+    !rep_noteswarnings
   ) {
     response(ctx, 404, {
       message: "It's not possible to add an empty character.",
@@ -42,20 +38,18 @@ const addCharacter = async (ctx) => {
   }
 
   const character = {
-    characterName,
-    mainStory,
+    character_name,
+    main_storyseries,
     author,
     genre,
-    stories,
-    reviews,
-    typeOfRep,
+    type_of_rep,
     gender,
     importance,
-    sexualOrientation,
-    romanticOrientation,
+    sexual_orientation,
+    romantic_orientation,
     relationships,
-    pairing,
-    warnings,
+    pairing_qpp_or_romantic,
+    rep_noteswarnings,
   };
 
   const dbCharacter = await Characters.addCharacter(character);
@@ -69,37 +63,35 @@ const addCharacter = async (ctx) => {
 
 const updateCharacter = async (ctx) => {
   const {
-    characterName = null,
-    mainStory = null,
+    character_name = null,
+    main_storyseries = null,
     author = null,
     genre = null,
-    typeOfRep = null,
+    type_of_rep = null,
     gender = null,
     importance = null,
-    sexualOrientation = null,
-    romanticOrientation = null,
+    sexual_orientation = null,
+    romantic_orientation = null,
     relationships = null,
-    pairing = null,
-    warnings = null,
+    pairing_qpp_or_romantic = null,
+    rep_noteswarnings = null,
   } = ctx.request.body;
-
-  console.log(characterName);
 
   const { id = null } = ctx.params;
   const updatedCharacter = {
     id,
-    characterName,
-    mainStory,
+    character_name,
+    main_storyseries,
     author,
     genre,
-    typeOfRep,
+    type_of_rep,
     gender,
     importance,
-    sexualOrientation,
-    romanticOrientation,
+    sexual_orientation,
+    romantic_orientation,
     relationships,
-    pairing,
-    warnings,
+    pairing_qpp_or_romantic,
+    rep_noteswarnings,
   };
 
   if (id) {
@@ -137,19 +129,22 @@ const deleteCharacter = async (ctx) => {
 
 const getAllCharacters = async (ctx) => {
   const { search = null } = ctx.query;
-  let one = search.toLowerCase().split(" ");
-  let two = [];
-  for (let i = 0; i < one.length; i++) {
-    if (one[i].includes("/")) {
-      console.log("yeah");
-      //   two.push(one[i][0].toUpperCase() + one[i].slice(1).replace(",", ""));
-      two.push(one[i].toUpperCase().replace(",", ""));
-    } else {
-      two.push(one[i][0].toUpperCase() + one[i].slice(1).replace(",", ""));
+  let one;
+  let two;
+  if (search) {
+    one = search.toLowerCase().split(" ");
+    two = [];
+    for (let i = 0; i < one.length; i++) {
+      if (one[i].includes("/")) {
+        console.log("yeah");
+        //   two.push(one[i][0].toUpperCase() + one[i].slice(1).replace(",", ""));
+        two.push(one[i].toUpperCase().replace(",", ""));
+      } else {
+        two.push(one[i][0].toUpperCase() + one[i].slice(1).replace(",", ""));
+      }
     }
   }
-  let three = two.join(" ");
-  console.log(one, two, three);
+
   let character;
 
   if (!search) {

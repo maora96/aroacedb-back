@@ -5,7 +5,7 @@ const addStory = async (ctx) => {
   const {
     character_id = null,
     story_title = null,
-    series_or_antho = null,
+    series_or_anthology = null,
     genre = null,
     length = null,
     type_of_rep = null,
@@ -17,7 +17,7 @@ const addStory = async (ctx) => {
   if (
     !character_id &&
     !story_title &&
-    !series_or_antho &&
+    !series_or_anthology &&
     !genre &&
     !length &&
     !type_of_rep &&
@@ -31,7 +31,7 @@ const addStory = async (ctx) => {
   const story = {
     character_id,
     story_title,
-    series_or_antho,
+    series_or_anthology,
     genre,
     length,
     type_of_rep,
@@ -79,7 +79,7 @@ const deleteStory = async (ctx) => {
 const updateStory = async (ctx) => {
   const {
     story_title = null,
-    series_or_antho = null,
+    series_or_anthology = null,
     genre = null,
     length = null,
     type_of_rep = null,
@@ -97,7 +97,7 @@ const updateStory = async (ctx) => {
       const update = await stories.updateStory(
         id,
         story_title,
-        series_or_antho,
+        series_or_anthology,
         genre,
         length,
         type_of_rep,

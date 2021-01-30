@@ -5,7 +5,9 @@ const Auth = require("./controllers/auth");
 const Characters = require("./controllers/characters");
 const Stories = require("./controllers/stories");
 const Reviews = require("./controllers/reviews");
-const Suggest = require("./controllers/suggest");
+const SuggestCharacters = require("./controllers/suggest-characters");
+const SuggestStories = require("./controllers/suggest-stories");
+const SuggestReviews = require("./controllers/suggest-reviews");
 const Stats = require("./controllers/stats");
 
 const Password = require("./middlewares/encrypt");
@@ -40,13 +42,27 @@ router.get("/reviews/:id", Reviews.getReview);
 router.post("/reviews", Reviews.addReview);
 router.delete("/reviews/:id", Reviews.deleteReview);
 
-// suggest
+// suggest characters
 
-router.post("/suggest", Suggest.addCharacter);
-router.get("/suggest/recent", Suggest.getRecentSuggested);
-router.get("/suggest/:id", Suggest.getCharacter);
-router.get("/suggest", Suggest.getAllCharacters);
-router.delete("/suggest/:id", Suggest.deleteCharacter);
+router.post("/suggest/characters", SuggestCharacters.addCharacter);
+router.get("/suggest/characters/recent", SuggestCharacters.getRecentSuggested);
+router.get("/suggest/characters/:id", SuggestCharacters.getCharacter);
+router.get("/suggest/characters", SuggestCharacters.getAllCharacters);
+router.delete("/suggest/characters/:id", SuggestCharacters.deleteCharacter);
+
+// suggest stories
+
+router.post("/suggest/stories", SuggestStories.addStory);
+router.get("/suggest/stories/:id", SuggestStories.getStory);
+router.get("/suggest/stories", SuggestStories.getAllStories);
+router.delete("/suggest/stories/:id", SuggestStories.deleteStory);
+
+// suggest reviews
+
+router.post("/suggest/reviews", SuggestReviews.addReview);
+router.get("/suggest/reviews/:id", SuggestReviews.getReview);
+router.get("/suggest/reviews", SuggestReviews.getAllReviews);
+router.delete("/suggest/reviews/:id", SuggestReviews.deleteReview);
 
 // stats
 router.get("/stats", Stats.getStats);

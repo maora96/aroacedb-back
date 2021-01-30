@@ -5,18 +5,18 @@ const addCharacter = async (character) => {
     text:
       "INSERT INTO characters (id, character_name, main_storyseries, author, genre, type_of_rep, gender, importance,sexual_orientation, romantic_orientation, relationships, pairing_qpp_or_romantic, rep_noteswarnings) VALUES (DEFAULT, $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *",
     values: [
-      character.characterName,
-      character.mainStory,
+      character.character_name,
+      character.main_storyseries,
       character.author,
       character.genre,
-      character.typeOfRep,
+      character.type_of_rep,
       character.gender,
       character.importance,
-      character.sexualOrientation,
-      character.romanticOrientation,
+      character.sexual_orientation,
+      character.romantic_orientation,
       character.relationships,
-      character.pairing,
-      character.warnings,
+      character.pairing_qpp_or_romantic,
+      character.rep_noteswarnings,
     ],
   };
   const query = await database.query(q);
@@ -55,7 +55,7 @@ const updateCharacter = async (character) => {
     text:
       "UPDATE characters set character_name = $1, main_storyseries = $2, author = $3, genre = $4, type_of_rep = $5, gender = $6, importance = $7, sexual_orientation = $8, romantic_orientation = $9, relationships = $10, pairing_qpp_or_romantic = $11, rep_noteswarnings = $12 WHERE id = $13 returning *",
     values: [
-      character.characterName,
+      character.character_name,
       character.main_storyseries,
       character.author,
       character.genre,

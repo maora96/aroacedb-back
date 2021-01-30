@@ -6,11 +6,11 @@ const addReview = async (ctx) => {
     character_id = null,
     review_for = null,
     reviewer = null,
-    ownvoices_for = null,
+    ownvoice_for = null,
     link = null,
   } = ctx.request.body;
 
-  if (!character_id && !review_for && !reviewer && !ownvoices_for && !link) {
+  if (!character_id && !review_for && !reviewer && !ownvoice_for && !link) {
     response(ctx, 404, { message: "It's not possible to add an empty review" });
   }
 
@@ -18,13 +18,13 @@ const addReview = async (ctx) => {
     character_id,
     review_for,
     reviewer,
-    ownvoices_for,
+    ownvoice_for,
     link,
   };
 
   const dbReview = await reviews.addReview(review);
 
-  response(ctx, 201, { review: review });
+  response(ctx, 201, { review });
 };
 
 const getReview = async (ctx) => {
@@ -64,7 +64,7 @@ const updateReview = async (ctx) => {
     character_id,
     review_for,
     reviewer,
-    ownvoices_for,
+    ownvoice_for,
     link,
   } = ctx.request.body;
 
@@ -78,7 +78,7 @@ const updateReview = async (ctx) => {
         character_id,
         review_for,
         reviewer,
-        ownvoices_for,
+        ownvoice_for,
         link
       );
       response(ctx, 200, update);
