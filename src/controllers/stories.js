@@ -42,7 +42,7 @@ const addStory = async (ctx) => {
 
   const dbStory = await stories.addStory(story);
 
-  response(ctx, 201, { story: story });
+  response(ctx, 201, { story });
 };
 
 const getStory = async (ctx) => {
@@ -50,7 +50,7 @@ const getStory = async (ctx) => {
 
   if (id) {
     const story = await stories.getStory(id);
-    response(ctx, 201, { story: story });
+    response(ctx, 201, { story });
   } else {
     response(ctx, 404, "ID can't be null");
   }

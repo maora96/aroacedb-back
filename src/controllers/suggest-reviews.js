@@ -24,7 +24,7 @@ const addReview = async (ctx) => {
 
   const dbReview = await Suggest.addReview(review);
 
-  response(ctx, 201, { review: review });
+  response(ctx, 201, { review });
 };
 
 const getReview = async (ctx) => {
@@ -32,7 +32,7 @@ const getReview = async (ctx) => {
 
   if (id) {
     const review = await Suggest.getReview(id);
-    response(ctx, 201, { review: review });
+    response(ctx, 201, { review });
   } else {
     response(ctx, 404, "ID can't be null");
   }

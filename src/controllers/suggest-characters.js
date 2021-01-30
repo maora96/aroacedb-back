@@ -78,7 +78,7 @@ const getCharacter = async (ctx) => {
 
   if (id) {
     const character = await Suggest.getCharacter(id);
-    response(ctx, 201, { character: character });
+    response(ctx, 201, { character });
   } else {
     response(ctx, 404, "ID can't be null.");
   }
@@ -99,7 +99,7 @@ const getAllCharacters = async (ctx) => {
   if (!characters) {
     response(ctx, 404, { message: "No characters found." });
   } else {
-    response(ctx, 200, { characters: characters });
+    response(ctx, 200, { characters });
   }
 };
 
