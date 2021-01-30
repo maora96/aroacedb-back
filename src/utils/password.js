@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 
 const check = async (password, hash) => {
+  console.log(password, hash);
   const comparison = await bcrypt.compare(password, hash);
   return comparison;
 };

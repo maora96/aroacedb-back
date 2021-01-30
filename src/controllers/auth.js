@@ -2,19 +2,25 @@ const jwt = require("jsonwebtoken");
 const Password = require("../utils/password");
 const response = require("../controllers/response");
 
-const authenticate = async (ctx) => {
-  const { email = null, senha = null } = ctx.request.body;
+const User = require("../repositories/user");
 
-  if (!email || !senha) {
+const authenticate = async (ctx) => {
+  const { email = null, password = null } = ctx.request.body;
+  console.log(password);
+
+  if (!email || !password) {
     response(ctx, 404, {
-      mensagem: "Pedido mal-formatado!",
+      mensagem: "Bad request.",
     });
   }
 
-  const user = await Users.getUserByEmail(email);
+  const user = await User.getUserByEmail(email);
+  console.log(password, user.password);
 
   if (user) {
-    const comparison = await Password.check(senha, user.senha);
+    console.log(1);
+    const comparison = await Password.check(password, user.password);
+    console.log(2);
     if (comparison) {
       const token = await jwt.sign(
         { id: user.id, email: user.email },
@@ -23,19 +29,19 @@ const authenticate = async (ctx) => {
           expiresIn: "1h",
         }
       );
-      ctx.body = token;
+
       response(ctx, 200, {
-        mensagem: "Usuário logado com sucesso!",
+        message: "User logged in.",
         token: token,
       });
     } else {
       response(ctx, 404, {
-        mensagem: "E-mail ou senha incorretos.",
+        message: "E-mail or password incorrect.",
       });
     }
   } else {
     response(ctx, 404, {
-      mensagem: "E-mail ou senha incorretos.",
+      message: "E-mail or password incorrect.",
     });
   }
 };
