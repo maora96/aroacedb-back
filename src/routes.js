@@ -30,6 +30,7 @@ router.get("/characters/:id", Characters.getCharacter);
 router.get("/characters", Characters.getAllCharacters);
 router.get("/character", Characters.getRandomCharacter);
 router.delete("/characters/:id", Session.verify, Characters.deleteCharacter);
+router.get("/characters/infinite", Characters.getAllCharactersInfinite);
 
 // stories
 

@@ -125,6 +125,25 @@ const deleteCharacter = async (ctx) => {
   }
 };
 
+const getAllCharactersInfinite = async (ctx) => {
+  const { search } = null;
+  let one;
+  let two;
+  if (search) {
+    one = search.toLowerCase().split(" ");
+    two = [];
+    for (let i = 0; i < one.length; i++) {
+      if (one[i].includes("/")) {
+        two.push(one[i].toUpperCase().replace(",", ""));
+      } else {
+        two.push(one[i][0].toUpperCase() + one[i].slice(1).replace(",", ""));
+      }
+    }
+  }
+  const characters = await Characters.getAllCharacters();
+  response(ctx, 200, { characters });
+};
+
 const getAllCharacters = async (ctx) => {
   const { search = null, offset = null } = ctx.query;
   let one;
@@ -195,4 +214,5 @@ module.exports = {
   getAllCharacters,
   getRandomCharacter,
   deleteCharacter,
+  getAllCharactersInfinite,
 };
