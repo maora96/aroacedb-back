@@ -50,10 +50,10 @@ const getAllCharacters = async () => {
   return query.rows;
 };
 
-const getAllCharactersPaginated = async (offset) => {
+const getAllCharactersPaginated = async (characters_per_page, offset) => {
   const q = {
-    text: "SELECT * FROM characters limit 7 offset $1",
-    values: [offset],
+    text: "SELECT * FROM characters limit $1 offset $2",
+    values: [characters_per_page, offset],
   };
 
   const query = await database.query(q);
@@ -109,7 +109,11 @@ const searchCharacters = async (search) => {
   return query.rows;
 };
 
-const searchCharactersPaginated = async (search, offset) => {
+const searchCharactersPaginated = async (
+  search,
+  offset,
+  characters_per_page
+) => {
   const queries = [];
   search.forEach((s) => {
     const text = `SELECT * FROM characters WHERE character_name LIKE '%${s}%' OR main_storyseries LIKE '%${s}%' OR author LIKE '%${s}%' OR genre LIKE '%${s}%' OR type_of_rep LIKE '%${s}%' OR gender LIKE '%${s}%' OR importance LIKE '%${s}%' OR sexual_orientation LIKE '%${s}%' OR romantic_orientation LIKE '%${s}%' OR relationships LIKE '%${s}%' OR pairing_qpp_or_romantic LIKE '%${s}%' `;
@@ -121,7 +125,7 @@ const searchCharactersPaginated = async (search, offset) => {
     if (i < queries.length - 1) {
       formatted.push(q + " INTERSECT ");
     } else {
-      formatted.push(q + ` limit 7 offset ${offset}`);
+      formatted.push(q + ` limit ${characters_per_page} offset ${offset}`);
     }
   });
   const final = formatted.join("");

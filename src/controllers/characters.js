@@ -147,12 +147,16 @@ const getAllCharacters = async (ctx) => {
 
   if (!search) {
     characters = await Characters.getAllCharacters();
-    paginated_characters = await Characters.getAllCharactersPaginated(offset);
+    paginated_characters = await Characters.getAllCharactersPaginated(
+      characters_per_page,
+      offset
+    );
   } else {
     characters = await Characters.searchCharacters(two);
     paginated_characters = await Characters.searchCharactersPaginated(
       two,
-      offset
+      offset,
+      characters_per_page
     );
   }
 
