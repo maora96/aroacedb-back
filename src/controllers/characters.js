@@ -143,7 +143,7 @@ const getAllCharacters = async (ctx) => {
 
   let characters;
   let paginated_character;
-  const characters_per_page = 7;
+  const characters_per_page = 20;
 
   if (!search) {
     characters = await Characters.getAllCharacters();
