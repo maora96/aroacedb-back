@@ -48,12 +48,30 @@ const deleteReview = async (ctx) => {
 };
 
 const getAllReviews = async (ctx) => {
+  const { offset } = ctx.query;
+  const reviews_per_page = 20;
+
+  const paginated_reviews = await Suggest.getAllReviewsPaginated(
+    reviews_per_page,
+    offset
+  );
+
   const reviews = await Suggest.getAllReviews();
 
-  if (!reviews) {
-    response(ctx, 404, { message: "No characters found." });
+  const reviews_num = reviews.length;
+
+  const paginate = (pageSize, totalClients) => {
+    return totalClients < pageSize ? 1 : Math.ceil(totalClients / pageSize);
+  };
+
+  const totalPages = paginate(reviews_per_page, reviews_num);
+
+  const currentPage = Math.ceil(offset / reviews_per_page) + 1;
+
+  if (!reviews && !paginated_reviews) {
+    response(ctx, 404, { message: "No reviews found." });
   } else {
-    response(ctx, 200, { reviews });
+    response(ctx, 200, { currentPage, totalPages, paginated_reviews });
   }
 };
 

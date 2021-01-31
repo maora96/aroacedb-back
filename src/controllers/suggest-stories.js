@@ -68,12 +68,30 @@ const deleteStory = async (ctx) => {
 };
 
 const getAllStories = async (ctx) => {
+  const { offset } = ctx.query;
+  const stories_per_page = 20;
+
+  const paginated_stories = await Suggest.getAllStoriesPaginated(
+    stories_per_page,
+    offset
+  );
+
   const stories = await Suggest.getAllStories();
 
+  const stories_num = stories.length;
+
+  const paginate = (pageSize, totalClients) => {
+    return totalClients < pageSize ? 1 : Math.ceil(totalClients / pageSize);
+  };
+
+  const totalPages = paginate(stories_per_page, stories_num);
+
+  const currentPage = Math.ceil(offset / stories_per_page) + 1;
+
   if (!stories) {
-    response(ctx, 404, { message: "No characters found." });
+    response(ctx, 404, { message: "No stories found." });
   } else {
-    response(ctx, 200, { stories });
+    response(ctx, 200, { currentPage, totalPages, paginated_stories });
   }
 };
 

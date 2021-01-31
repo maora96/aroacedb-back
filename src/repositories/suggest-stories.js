@@ -29,6 +29,16 @@ const getAllStories = async () => {
   return query.rows;
 };
 
+const getAllStoriesPaginated = async (stories_per_page, offset) => {
+  const q = {
+    text: "SELECT * FROM st_suggestions limit $1 offset $2",
+    values: [stories_per_page, offset],
+  };
+
+  const query = await database.query(q);
+  return query.rows;
+};
+
 const getStory = async (id) => {
   const q = {
     text: "SELECT * FROM st_suggestions where id = $1",
@@ -52,4 +62,5 @@ module.exports = {
   getAllStories,
   deleteStory,
   addStory,
+  getAllStoriesPaginated,
 };

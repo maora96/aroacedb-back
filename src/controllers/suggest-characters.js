@@ -94,12 +94,29 @@ const deleteCharacter = async (ctx) => {
 };
 
 const getAllCharacters = async (ctx) => {
+  const { offset } = ctx.query;
+  const characters_per_page = 20;
+  const paginated_characters = await Suggest.getAllCharactersPaginated(
+    characters_per_page,
+    offset
+  );
+
   const characters = await Suggest.getAllCharacters();
 
-  if (!characters) {
+  const characters_num = characters.length;
+
+  const paginate = (pageSize, totalClients) => {
+    return totalClients < pageSize ? 1 : Math.ceil(totalClients / pageSize);
+  };
+
+  const totalPages = paginate(characters_per_page, characters_num);
+
+  const currentPage = Math.ceil(offset / characters_per_page) + 1;
+
+  if (!characters && !paginated_characters) {
     response(ctx, 404, { message: "No characters found." });
   } else {
-    response(ctx, 200, { characters });
+    response(ctx, 200, { currentPage, totalPages, paginated_characters });
   }
 };
 

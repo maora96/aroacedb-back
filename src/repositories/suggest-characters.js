@@ -40,6 +40,16 @@ const getAllCharacters = async () => {
   return query.rows;
 };
 
+const getAllCharactersPaginated = async (characters_per_page, offset) => {
+  const q = {
+    text: "SELECT * FROM ch_suggestions limit $1 offset $2",
+    values: [characters_per_page, offset],
+  };
+
+  const query = await database.query(q);
+  return query.rows;
+};
+
 const getCharacter = async (id) => {
   const q = {
     text: "SELECT * FROM ch_suggestions where id = $1",
@@ -64,4 +74,5 @@ module.exports = {
   getAllCharacters,
   getCharacter,
   deleteCharacter,
+  getAllCharactersPaginated,
 };

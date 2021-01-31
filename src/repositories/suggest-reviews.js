@@ -33,6 +33,16 @@ const getAllReviews = async (id) => {
   return query.rows;
 };
 
+const getAllReviewsPaginated = async (reviews_per_page, offset) => {
+  const q = {
+    text: "SELECT * FROM re_suggestions limit $1 offset $2",
+    values: [reviews_per_page, offset],
+  };
+
+  const query = await database.query(q);
+  return query.rows;
+};
+
 const deleteReview = async (id) => {
   const q = {
     text: "DELETE FROM re_suggestions where id = $1 returning *",
@@ -47,4 +57,5 @@ module.exports = {
   addReview,
   getAllReviews,
   deleteReview,
+  getAllReviewsPaginated,
 };
