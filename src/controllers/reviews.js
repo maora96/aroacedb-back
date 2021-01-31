@@ -51,8 +51,8 @@ const deleteAllCharacterReviews = async (ctx) => {
   const { id = null } = ctx.params;
 
   if (id) {
-    const reviews = await reviews.deleteAllCharacterReviews(id);
-    response(ctx, 201, { reviews });
+    const deletedReviews = await reviews.deleteAllCharacterReviews(id);
+    response(ctx, 201, { deletedReviews });
   }
 };
 

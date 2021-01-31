@@ -80,8 +80,8 @@ const deleteAllCharacterStories = async (ctx) => {
   const { id = null } = ctx.params;
 
   if (id) {
-    const reviews = await stories.deleteAllCharacterStories(id);
-    response(ctx, 201, { reviews });
+    const deletedStories = await stories.deleteAllCharacterStories(id);
+    response(ctx, 201, { deletedStories });
   }
 };
 
