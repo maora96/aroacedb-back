@@ -43,6 +43,15 @@ const deleteReview = async (id) => {
   return query.rows;
 };
 
+const deleteAllCharacterReviews = async (id) => {
+  const q = {
+    text: "DELETE FROM reviews where character_id = $1 returning *",
+    values: [id],
+  };
+  const query = await database.query(q);
+  return query.rows;
+};
+
 const updateReview = async (
   id,
   character_id,
@@ -66,4 +75,5 @@ module.exports = {
   getAllReviews,
   updateReview,
   deleteReview,
+  deleteAllCharacterReviews,
 };

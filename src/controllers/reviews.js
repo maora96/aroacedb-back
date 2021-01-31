@@ -47,6 +47,15 @@ const deleteReview = async (ctx) => {
   }
 };
 
+const deleteAllCharacterReviews = async (ctx) => {
+  const { id = null } = ctx.params;
+
+  if (id) {
+    const reviews = await reviews.deleteAllCharacterReviews(id);
+    response(ctx, 201, { reviews });
+  }
+};
+
 const getAllReviewsByCharacter = async (ctx) => {
   const { id = null } = ctx.params;
 
@@ -96,4 +105,5 @@ module.exports = {
   getAllReviewsByCharacter,
   updateReview,
   deleteReview,
+  deleteAllCharacterReviews,
 };

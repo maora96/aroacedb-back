@@ -29,6 +29,15 @@ const deleteStory = async (id) => {
   return query.rows;
 };
 
+const deleteAllCharacterStories = async (id) => {
+  const q = {
+    text: "DELETE FROM stories where character_id = $1 returning *",
+    values: [id],
+  };
+  const query = await database.query(q);
+  return query.rows;
+};
+
 const getStory = async (id) => {
   const q = {
     text: "SELECT * FROM stories where id = $1",
@@ -83,4 +92,5 @@ module.exports = {
   getAllStories,
   updateStory,
   deleteStory,
+  deleteAllCharacterStories,
 };

@@ -4,6 +4,7 @@ require("dotenv").config();
 
 const verify = async (ctx, next) => {
   const [bearer, token] = ctx.headers.authorization.split(" ");
+  console.log(bearer, token);
 
   try {
     const verification = await jwt.verify(token, process.env.JWT_SECRET);

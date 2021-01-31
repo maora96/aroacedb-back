@@ -38,6 +38,11 @@ router.get("/stories/character/:id", Stories.getAllStoriesByCharacter);
 router.put("/stories/:id", Session.verify, Stories.updateStory);
 router.post("/stories", Session.verify, Stories.addStory);
 router.delete("/stories/:id", Session.verify, Stories.deleteStory);
+router.delete(
+  "/stories/character/:id",
+  Session.verify,
+  Stories.deleteAllCharacterStories
+);
 
 // reviews
 
@@ -46,6 +51,11 @@ router.put("/reviews/:id", Session.verify, Reviews.updateReview);
 router.get("/reviews/:id", Reviews.getReview);
 router.post("/reviews", Session.verify, Reviews.addReview);
 router.delete("/reviews/:id", Session.verify, Reviews.deleteReview);
+router.delete(
+  "/reviews/character/:id",
+  Session.verify,
+  Reviews.deleteAllCharacterReviews
+);
 
 // suggest characters
 
