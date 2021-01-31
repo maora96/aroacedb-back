@@ -126,7 +126,7 @@ const deleteCharacter = async (ctx) => {
 };
 
 const getAllCharactersInfinite = async (ctx) => {
-  const { search } = null;
+  const { search = null } = ctx.query;
   let one;
   let two;
   if (search) {
@@ -140,7 +140,7 @@ const getAllCharactersInfinite = async (ctx) => {
       }
     }
   }
-  const characters = await Characters.getAllCharacters();
+  const characters = await Characters.searchCharacters(two);
   response(ctx, 200, { characters });
 };
 
