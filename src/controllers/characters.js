@@ -158,6 +158,8 @@ const getAllCharacters = async (ctx) => {
       offset,
       characters_per_page
     );
+    console.log(search);
+    console.log(offset);
   }
 
   const characters_num = characters.length;

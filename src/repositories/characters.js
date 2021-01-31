@@ -87,7 +87,7 @@ const updateCharacter = async (character) => {
 const searchCharacters = async (search) => {
   const queries = [];
   search.forEach((s) => {
-    const text = `SELECT * FROM characters WHERE character_name LIKE '%${s}%' OR main_storyseries LIKE '%${s}%' OR author LIKE '%${s}%' OR genre LIKE '%${s}%' OR type_of_rep LIKE '%${s}%' OR gender LIKE '%${s}%' OR importance LIKE '%${s}%' OR sexual_orientation LIKE '%${s}%' OR romantic_orientation LIKE '%${s}%' OR relationships LIKE '%${s}%' OR pairing_qpp_or_romantic LIKE '%${s}%'`;
+    const text = `SELECT * FROM characters WHERE character_name ILIKE '%${s}%' OR main_storyseries ILIKE '%${s}%' OR author ILIKE '%${s}%' OR genre ILIKE '%${s}%' OR type_of_rep ILIKE '%${s}%' OR gender ILIKE '%${s}%' OR importance ILIKE '%${s}%' OR sexual_orientation ILIKE '%${s}%' OR romantic_orientation ILIKE '%${s}%' OR relationships ILIKE '%${s}%' OR pairing_qpp_or_romantic ILIKE '%${s}%'`;
     queries.push(text);
   });
   const formatted = [];
@@ -116,7 +116,7 @@ const searchCharactersPaginated = async (
 ) => {
   const queries = [];
   search.forEach((s) => {
-    const text = `SELECT * FROM characters WHERE character_name LIKE '%${s}%' OR main_storyseries LIKE '%${s}%' OR author LIKE '%${s}%' OR genre LIKE '%${s}%' OR type_of_rep LIKE '%${s}%' OR gender LIKE '%${s}%' OR importance LIKE '%${s}%' OR sexual_orientation LIKE '%${s}%' OR romantic_orientation LIKE '%${s}%' OR relationships LIKE '%${s}%' OR pairing_qpp_or_romantic LIKE '%${s}%' `;
+    const text = `SELECT * FROM characters WHERE character_name ILIKE '%${s}%' OR main_storyseries ILIKE '%${s}%' OR author ILIKE '%${s}%' OR genre ILIKE '%${s}%' OR type_of_rep ILIKE '%${s}%' OR gender ILIKE '%${s}%' OR importance ILIKE '%${s}%' OR sexual_orientation ILIKE '%${s}%' OR romantic_orientation ILIKE '%${s}%' OR relationships ILIKE '%${s}%' OR pairing_qpp_or_romantic ILIKE '%${s}%' `;
     queries.push(text);
   });
   const formatted = [];
