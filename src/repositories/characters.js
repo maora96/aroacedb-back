@@ -50,6 +50,16 @@ const getAllCharacters = async () => {
   return query.rows;
 };
 
+const getAllCharactersPaginated = async (offset) => {
+  const q = {
+    text: "SELECT * FROM characters limit 7 offset $1",
+    values: [offset],
+  };
+
+  const query = await database.query(q);
+  return query.rows;
+};
+
 const updateCharacter = async (character) => {
   const q = {
     text:
@@ -99,6 +109,32 @@ const searchCharacters = async (search) => {
   return query.rows;
 };
 
+const searchCharactersPaginated = async (search, offset) => {
+  const queries = [];
+  search.forEach((s) => {
+    const text = `SELECT * FROM characters WHERE character_name LIKE '%${s}%' OR main_storyseries LIKE '%${s}%' OR author LIKE '%${s}%' OR genre LIKE '%${s}%' OR type_of_rep LIKE '%${s}%' OR gender LIKE '%${s}%' OR importance LIKE '%${s}%' OR sexual_orientation LIKE '%${s}%' OR romantic_orientation LIKE '%${s}%' OR relationships LIKE '%${s}%' OR pairing_qpp_or_romantic LIKE '%${s}%' `;
+    queries.push(text);
+  });
+  const formatted = [];
+  console.log(queries);
+  queries.forEach((q, i) => {
+    if (i < queries.length - 1) {
+      formatted.push(q + " INTERSECT ");
+    } else {
+      formatted.push(q + ` limit 7 offset ${offset}`);
+    }
+  });
+  const final = formatted.join("");
+  console.log(final);
+  const q = {
+    text: final,
+  };
+
+  const query = await database.query(q);
+
+  return query.rows;
+};
+
 const getRandomCharacter = async () => {
   const q = {
     text: "select * from characters order by random() limit 1",
@@ -117,4 +153,6 @@ module.exports = {
   searchCharacters,
   getRandomCharacter,
   deleteCharacter,
+  getAllCharactersPaginated,
+  searchCharactersPaginated,
 };

@@ -126,7 +126,7 @@ const deleteCharacter = async (ctx) => {
 };
 
 const getAllCharacters = async (ctx) => {
-  const { search = null } = ctx.query;
+  const { search = null, offset = null } = ctx.query;
   let one;
   let two;
   if (search) {
@@ -134,8 +134,6 @@ const getAllCharacters = async (ctx) => {
     two = [];
     for (let i = 0; i < one.length; i++) {
       if (one[i].includes("/")) {
-        console.log("yeah");
-        //   two.push(one[i][0].toUpperCase() + one[i].slice(1).replace(",", ""));
         two.push(one[i].toUpperCase().replace(",", ""));
       } else {
         two.push(one[i][0].toUpperCase() + one[i].slice(1).replace(",", ""));
@@ -143,18 +141,35 @@ const getAllCharacters = async (ctx) => {
     }
   }
 
-  let character;
+  let characters;
+  let paginated_character;
+  const characters_per_page = 7;
 
   if (!search) {
-    character = await Characters.getAllCharacters();
+    characters = await Characters.getAllCharacters();
+    paginated_characters = await Characters.getAllCharactersPaginated(offset);
   } else {
-    character = await Characters.searchCharacters(two);
+    characters = await Characters.searchCharacters(two);
+    paginated_characters = await Characters.searchCharactersPaginated(
+      two,
+      offset
+    );
   }
 
-  if (!character) {
+  const characters_num = characters.length;
+
+  const paginate = (pageSize, totalClients) => {
+    return totalClients < pageSize ? 1 : Math.ceil(totalClients / pageSize);
+  };
+
+  const totalPages = paginate(characters_per_page, characters_num);
+
+  const currentPage = Math.ceil(offset / characters_per_page) + 1;
+
+  if (!characters && !paginated_character) {
     response(ctx, 404, { message: "No character found." });
   } else {
-    response(ctx, 200, { character });
+    response(ctx, 200, { currentPage, totalPages, paginated_characters });
   }
 };
 
