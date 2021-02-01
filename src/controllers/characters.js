@@ -16,6 +16,7 @@ const addCharacter = async (ctx) => {
     relationships = null,
     pairing_qpp_or_romantic = null,
     rep_noteswarnings = null,
+    cover = null,
   } = ctx.request.body;
 
   if (
@@ -30,7 +31,8 @@ const addCharacter = async (ctx) => {
     !romantic_orientation &&
     !relationships &&
     !pairing_qpp_or_romantic &&
-    !rep_noteswarnings
+    !rep_noteswarnings &&
+    !cover
   ) {
     response(ctx, 404, {
       message: "It's not possible to add an empty character.",
@@ -50,6 +52,7 @@ const addCharacter = async (ctx) => {
     relationships,
     pairing_qpp_or_romantic,
     rep_noteswarnings,
+    cover,
   };
 
   const dbCharacter = await Characters.addCharacter(character);
@@ -73,6 +76,7 @@ const updateCharacter = async (ctx) => {
     relationships = null,
     pairing_qpp_or_romantic = null,
     rep_noteswarnings = null,
+    cover = null,
   } = ctx.request.body;
 
   const { id = null } = ctx.params;
@@ -90,6 +94,7 @@ const updateCharacter = async (ctx) => {
     relationships,
     pairing_qpp_or_romantic,
     rep_noteswarnings,
+    cover,
   };
 
   if (id) {

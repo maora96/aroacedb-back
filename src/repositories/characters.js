@@ -3,7 +3,7 @@ const database = require("../utils/database");
 const addCharacter = async (character) => {
   const q = {
     text:
-      "INSERT INTO characters (id, character_name, main_storyseries, author, genre, type_of_rep, gender, importance,sexual_orientation, romantic_orientation, relationships, pairing_qpp_or_romantic, rep_noteswarnings) VALUES (DEFAULT, $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *",
+      "INSERT INTO characters (id, character_name, main_storyseries, author, genre, type_of_rep, gender, importance,sexual_orientation, romantic_orientation, relationships, pairing_qpp_or_romantic, rep_noteswarnings, cover) VALUES (DEFAULT, $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING *",
     values: [
       character.character_name,
       character.main_storyseries,
@@ -17,6 +17,7 @@ const addCharacter = async (character) => {
       character.relationships,
       character.pairing_qpp_or_romantic,
       character.rep_noteswarnings,
+      character.cover,
     ],
   };
   const query = await database.query(q);
@@ -63,7 +64,7 @@ const getAllCharactersPaginated = async (characters_per_page, offset) => {
 const updateCharacter = async (character) => {
   const q = {
     text:
-      "UPDATE characters set character_name = $1, main_storyseries = $2, author = $3, genre = $4, type_of_rep = $5, gender = $6, importance = $7, sexual_orientation = $8, romantic_orientation = $9, relationships = $10, pairing_qpp_or_romantic = $11, rep_noteswarnings = $12 WHERE id = $13 returning *",
+      "UPDATE characters set character_name = $1, main_storyseries = $2, author = $3, genre = $4, type_of_rep = $5, gender = $6, importance = $7, sexual_orientation = $8, romantic_orientation = $9, relationships = $10, pairing_qpp_or_romantic = $11, rep_noteswarnings = $12, cover = $13 WHERE id = $14 returning *",
     values: [
       character.character_name,
       character.main_storyseries,
@@ -77,6 +78,7 @@ const updateCharacter = async (character) => {
       character.relationships,
       character.pairing_qpp_or_romantic,
       character.rep_noteswarnings,
+      character.cover,
       character.id,
     ],
   };
