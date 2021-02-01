@@ -12,6 +12,7 @@ const addStory = async (ctx) => {
     character_importance = null,
     rep_noteswarnings = null,
     other_noteswarnings = null,
+    cover = null,
   } = ctx.request.body;
 
   if (
@@ -23,7 +24,8 @@ const addStory = async (ctx) => {
     !type_of_rep &&
     !character_importance &&
     !rep_noteswarnings &&
-    !other_noteswarnings
+    !other_noteswarnings &&
+    !cover
   ) {
     response(ctx, 404, { message: "It's not possible to add an empty story" });
   }
@@ -95,6 +97,7 @@ const updateStory = async (ctx) => {
     character_importance = null,
     rep_noteswarnings = null,
     other_noteswarnings = null,
+    cover = null,
   } = ctx.request.body;
 
   const { id = null } = ctx.params;
@@ -112,7 +115,8 @@ const updateStory = async (ctx) => {
         type_of_rep,
         character_importance,
         rep_noteswarnings,
-        other_noteswarnings
+        other_noteswarnings,
+        cover
       );
       response(ctx, 200, update);
     } else {
