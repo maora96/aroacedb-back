@@ -66,7 +66,8 @@ const updateStory = async (
   type_of_rep,
   character_importance,
   rep_noteswarnings,
-  other_noteswarnings
+  other_noteswarnings,
+  cover
 ) => {
   const q = {
     text:
