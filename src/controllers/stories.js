@@ -40,6 +40,7 @@ const addStory = async (ctx) => {
     character_importance,
     rep_noteswarnings,
     other_noteswarnings,
+    cover,
   };
 
   const dbStory = await stories.addStory(story);
