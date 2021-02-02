@@ -7,7 +7,7 @@ const addStory = async (ctx) => {
     story_title = null,
     series_or_anthology = null,
     genre = null,
-    length = null,
+    story_length = null,
     type_of_rep = null,
     character_importance = null,
     rep_noteswarnings = null,
@@ -20,7 +20,7 @@ const addStory = async (ctx) => {
     !story_title &&
     !series_or_anthology &&
     !genre &&
-    !length &&
+    !story_length &&
     !type_of_rep &&
     !character_importance &&
     !rep_noteswarnings &&
@@ -35,7 +35,7 @@ const addStory = async (ctx) => {
     story_title,
     series_or_anthology,
     genre,
-    length,
+    story_length,
     type_of_rep,
     character_importance,
     rep_noteswarnings,
@@ -93,7 +93,7 @@ const updateStory = async (ctx) => {
     story_title = null,
     series_or_anthology = null,
     genre = null,
-    length = null,
+    story_length = null,
     type_of_rep = null,
     character_importance = null,
     rep_noteswarnings = null,
@@ -112,7 +112,7 @@ const updateStory = async (ctx) => {
         story_title,
         series_or_anthology,
         genre,
-        length,
+        story_length,
         type_of_rep,
         character_importance,
         rep_noteswarnings,
