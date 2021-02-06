@@ -10,6 +10,7 @@ const SuggestStories = require("./controllers/suggest-stories");
 const SuggestReviews = require("./controllers/suggest-reviews");
 const Stats = require("./controllers/stats");
 const User = require("./controllers/user");
+const Permissions = require("./controllers/permissions");
 
 const Password = require("./middlewares/encrypt");
 const Session = require("./middlewares/session");
@@ -94,5 +95,11 @@ router.delete(
 
 // stats
 router.get("/stats", Stats.getStats);
+
+// permissions
+router.get("/permissions", Permissions.getPermissions);
+router.post("/permissions/story", Permissions.updateStory);
+router.post("/permissions/character", Permissions.updateCharacter);
+router.post("/permissions/review", Permissions.updateReview);
 
 module.exports = router;
