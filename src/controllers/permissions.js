@@ -26,6 +26,7 @@ const updateCharacter = async (ctx) => {
   const { checked = null } = ctx.request.body;
 
   const update = await Permissions.updateCharacter(checked);
+  console.log(update);
   if (update) {
     response(ctx, 200, update);
   } else {
