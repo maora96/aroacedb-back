@@ -3,7 +3,23 @@ const response = require("./response");
 
 const getPermissions = async (ctx) => {
   const permissions = await Permissions.getPermissions();
-  response(ctx, 201, permissions);
+  let data = {};
+
+  permissions.map((p) => {
+    if (p.checked_name === "character") {
+      data.character = p;
+    }
+
+    if (p.checked_name === "review") {
+      data.review = p;
+    }
+
+    if (p.checked_name === "story") {
+      data.story = p;
+    }
+  });
+  console.log(data);
+  response(ctx, 201, data);
 };
 
 const updateCharacter = async (ctx) => {

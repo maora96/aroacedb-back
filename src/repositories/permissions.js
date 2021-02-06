@@ -5,6 +5,7 @@ const getPermissions = async () => {
     text: "select * from permissions",
   };
   const query = await database.query(q);
+  console.log(query.rows);
   return query.rows;
 };
 
