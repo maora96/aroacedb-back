@@ -3,7 +3,7 @@ const database = require("../utils/database");
 const addCharacter = async (character) => {
   const q = {
     text:
-      "INSERT INTO ch_suggestions (id, character_name, main_storyseries, author, genre, type_of_rep, gender, importance,sexual_orientation, romantic_orientation, relationships, pairing_qpp_or_romantic, rep_noteswarnings, cover) VALUES (DEFAULT, $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING *",
+      "INSERT INTO ch_suggestions (id, character_name, main_storyseries, author, genre, type_of_rep, gender, importance,sexual_orientation, romantic_orientation, relationships, pairing_qpp_or_romantic, rep_noteswarnings, cover, reference) VALUES (DEFAULT, $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING *",
     values: [
       character.character_name,
       character.main_storyseries,
@@ -18,6 +18,7 @@ const addCharacter = async (character) => {
       character.pairing_qpp_or_romantic,
       character.rep_noteswarnings,
       character.cover,
+      character.reference,
     ],
   };
   const query = await database.query(q);
