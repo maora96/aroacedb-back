@@ -137,9 +137,32 @@ const getAllCharactersInfinite = async (ctx) => {
   if (search) {
     one = search.toLowerCase().split(" ");
     two = [];
+    console.log("one", one);
     for (let i = 0; i < one.length; i++) {
       if (one[i].includes("/")) {
         two.push(one[i].toUpperCase().replace(",", ""));
+      } else if (
+        one[i].includes("grayasexual") ||
+        one[i].includes("gray-sexual") ||
+        one[i].includes("greysexual") ||
+        one[i].includes("gray-sexual") ||
+        one[i].includes("graysexual") ||
+        one[i].includes("greyasexual")
+      ) {
+        one.splice(i, 1, "gray-asexual");
+        console.log("hiya:", one);
+        two.push(one[i]);
+      } else if (
+        one[i].includes("grayromantic") ||
+        one[i].includes("gray-romantic") ||
+        one[i].includes("greyromantic") ||
+        one[i].includes("gray-romantic") ||
+        one[i].includes("grayromantic") ||
+        one[i].includes("greyromantic")
+      ) {
+        one.splice(i, 1, "grey-romantic");
+        console.log("hiya:", one);
+        two.push(one[i]);
       } else {
         two.push(one[i][0].toUpperCase() + one[i].slice(1).replace(",", ""));
       }
@@ -159,6 +182,28 @@ const getAllCharacters = async (ctx) => {
     for (let i = 0; i < one.length; i++) {
       if (one[i].includes("/")) {
         two.push(one[i].toUpperCase().replace(",", ""));
+      } else if (
+        one[i].includes("grayasexual") ||
+        one[i].includes("gray-sexual") ||
+        one[i].includes("greysexual") ||
+        one[i].includes("gray-sexual") ||
+        one[i].includes("graysexual") ||
+        one[i].includes("greyasexual")
+      ) {
+        one.splice(i, 1, "gray-asexual");
+        console.log("hiya:", one);
+        two.push(one[i]);
+      } else if (
+        one[i].includes("grayromantic") ||
+        one[i].includes("gray-romantic") ||
+        one[i].includes("greyromantic") ||
+        one[i].includes("gray-romantic") ||
+        one[i].includes("grayromantic") ||
+        one[i].includes("greyromantic")
+      ) {
+        one.splice(i, 1, "grey-romantic");
+        console.log("hiya:", one);
+        two.push(one[i]);
       } else {
         two.push(one[i][0].toUpperCase() + one[i].slice(1).replace(",", ""));
       }
