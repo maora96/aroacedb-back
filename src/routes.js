@@ -14,6 +14,7 @@ const Permissions = require("./controllers/permissions");
 
 const Password = require("./middlewares/encrypt");
 const Session = require("./middlewares/session");
+const Download = require("./controllers/export");
 
 // auth
 
@@ -102,4 +103,7 @@ router.post("/permissions/story", Permissions.updateStory);
 router.post("/permissions/character", Permissions.updateCharacter);
 router.post("/permissions/review", Permissions.updateReview);
 
+// download csv files
+
+router.get("/download/:table", Download.exportTable);
 module.exports = router;
