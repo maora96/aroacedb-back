@@ -62,7 +62,7 @@ const updateStory = async (
   story_title,
   series_or_anthology,
   genre,
-  length,
+  story_length,
   type_of_rep,
   character_importance,
   rep_noteswarnings,

@@ -89,14 +89,14 @@ const updateCharacter = async (character) => {
 const searchCharacters = async (search) => {
   const queries = [];
   search.forEach((s) => {
-    const text = `SELECT * FROM characters WHERE character_name ILIKE '%${s}%' OR main_storyseries ILIKE '%${s}%' OR author ILIKE '%${s}%' OR genre ILIKE '%${s}%' OR type_of_rep ILIKE '%${s}%' OR gender ILIKE '%${s}%' OR importance ILIKE '%${s}%' OR sexual_orientation ILIKE '%${s}%' OR romantic_orientation ILIKE '%${s}%' OR relationships ILIKE '%${s}%' OR pairing_qpp_or_romantic ILIKE '%${s}%'`;
+    const text = `SELECT * FROM characters WHERE character_name ILIKE '%${s}%' OR main_storyseries ILIKE '%${s}%' OR author ILIKE '%${s}%' OR genre ILIKE '%${s}%' OR type_of_rep ILIKE '%${s}%' OR gender ILIKE '%${s}%' OR importance ILIKE '%${s}%' OR sexual_orientation ILIKE '%${s}%' OR romantic_orientation ILIKE '%${s}%' OR relationships ILIKE '%${s}%' OR pairing_qpp_or_romantic ILIKE '%${s}%' OR rep_noteswarnings ILIKE '%${s}%'`;
     queries.push(text);
   });
   const formatted = [];
   console.log(queries);
   queries.forEach((q, i) => {
     if (i < queries.length - 1) {
-      formatted.push(q + " INTERSECT ");
+      formatted.push(q + " UNION ");
     } else {
       formatted.push(q);
     }
@@ -118,14 +118,14 @@ const searchCharactersPaginated = async (
 ) => {
   const queries = [];
   search.forEach((s) => {
-    const text = `SELECT * FROM characters WHERE character_name ILIKE '%${s}%' OR main_storyseries ILIKE '%${s}%' OR author ILIKE '%${s}%' OR genre ILIKE '%${s}%' OR type_of_rep ILIKE '%${s}%' OR gender ILIKE '%${s}%' OR importance ILIKE '%${s}%' OR sexual_orientation ILIKE '%${s}%' OR romantic_orientation ILIKE '%${s}%' OR relationships ILIKE '%${s}%' OR pairing_qpp_or_romantic ILIKE '%${s}%' `;
+    const text = `SELECT * FROM characters WHERE character_name ILIKE '%${s}%' OR main_storyseries ILIKE '%${s}%' OR author ILIKE '%${s}%' OR genre ILIKE '%${s}%' OR type_of_rep ILIKE '%${s}%' OR gender ILIKE '%${s}%' OR importance ILIKE '%${s}%' OR sexual_orientation ILIKE '%${s}%' OR romantic_orientation ILIKE '%${s}%' OR relationships ILIKE '%${s}%' OR pairing_qpp_or_romantic ILIKE '%${s}%' OR rep_noteswarnings ILIKE '%${s}%'`;
     queries.push(text);
   });
   const formatted = [];
   console.log(queries);
   queries.forEach((q, i) => {
     if (i < queries.length - 1) {
-      formatted.push(q + " INTERSECT ");
+      formatted.push(q + " UNION ");
     } else {
       formatted.push(q + ` limit ${characters_per_page} offset ${offset}`);
     }
