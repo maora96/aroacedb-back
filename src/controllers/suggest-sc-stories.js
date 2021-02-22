@@ -109,10 +109,20 @@ const getAllStoriesByCharacter = async (ctx) => {
   }
 };
 
+const deleteAllCharacterStories = async (ctx) => {
+  const { id = null } = ctx.params;
+
+  if (id) {
+    const deletedStories = await Suggest.deleteAllCharacterStories(id);
+    response(ctx, 201, { deletedStories });
+  }
+};
+
 module.exports = {
   addStory,
   getStory,
   getAllStories,
   deleteStory,
   getAllStoriesByCharacter,
+  deleteAllCharacterStories,
 };

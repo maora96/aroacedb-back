@@ -118,7 +118,7 @@ router.get(
 router.get("/suggest/sc/stories", SuggestSC.getAllStories);
 router.delete("/suggest/sc/stories/:id", Session.verify, SuggestSC.deleteStory);
 router.delete(
-  "/suggest/sc/cjaracter/stories/:id",
+  "/suggest/sc/character/stories/:id",
   Session.verify,
   SuggestSC.deleteAllCharacterStories
 );
