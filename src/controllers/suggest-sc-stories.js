@@ -105,7 +105,7 @@ const getAllStoriesByCharacter = async (ctx) => {
     const characterStories = await Suggest.getAllStories(id);
     response(ctx, 201, { stories: characterStories });
   } else {
-    response(ctx, 404, "ID can't be null");
+    response(ctx, 404, "ID can not be null");
   }
 };
 
