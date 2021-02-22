@@ -11,8 +11,7 @@ const SuggestReviews = require("./controllers/suggest-reviews");
 const Stats = require("./controllers/stats");
 const User = require("./controllers/user");
 const Permissions = require("./controllers/permissions");
-
-const Password = require("./middlewares/encrypt");
+const SuggestSC = require("./controllers/suggest-sc-stories");
 const Session = require("./middlewares/session");
 const Download = require("./controllers/export");
 
@@ -107,3 +106,10 @@ router.post("/permissions/review", Permissions.updateReview);
 
 router.get("/download/:table", Download.exportTable);
 module.exports = router;
+
+// suggest stories to suggested characters
+
+router.post("/suggest/sc/stories", SuggestSC.addStory);
+router.get("/suggest/sc/stories/:id", SuggestSC.getStory);
+router.get("/suggest/sc/stories", SuggestSC.getAllStories);
+router.delete("/suggest/sc/stories/:id", Session.verify, SuggestSC.deleteStory);
