@@ -111,5 +111,14 @@ module.exports = router;
 
 router.post("/suggest/sc/stories", SuggestSC.addStory);
 router.get("/suggest/sc/stories/:id", SuggestSC.getStory);
+router.get(
+  "/suggest/sc/character/stories/:id",
+  SuggestSC.getAllStoriesByCharacter
+);
 router.get("/suggest/sc/stories", SuggestSC.getAllStories);
 router.delete("/suggest/sc/stories/:id", Session.verify, SuggestSC.deleteStory);
+router.delete(
+  "/suggest/sc/character/stories/:id",
+  Session.verify,
+  SuggestSC.deleteAllCharacterStories
+);

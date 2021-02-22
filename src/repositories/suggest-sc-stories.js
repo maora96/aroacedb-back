@@ -30,6 +30,24 @@ const getAllStories = async () => {
   return query.rows;
 };
 
+const getAllStoriesByCharacter = async (id) => {
+  const q = {
+    text: "SELECT * FROM st_sc_suggestions where character_id = $1",
+    values: [id],
+  };
+  const query = await database.query(q);
+  return query.rows;
+};
+
+const deleteAllCharacterStories = async (id) => {
+  const q = {
+    text: "DELETE FROM st_sc_suggestions where character_id = $1 returning *",
+    values: [id],
+  };
+  const query = await database.query(q);
+  return query.rows;
+};
+
 const getAllStoriesPaginated = async (stories_per_page, offset) => {
   const q = {
     text: "SELECT * FROM st_sc_suggestions limit $1 offset $2",
@@ -64,4 +82,6 @@ module.exports = {
   deleteStory,
   addStory,
   getAllStoriesPaginated,
+  getAllStoriesByCharacter,
+  deleteAllCharacterStories,
 };

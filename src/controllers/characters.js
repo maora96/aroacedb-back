@@ -58,7 +58,7 @@ const addCharacter = async (ctx) => {
   const dbCharacter = await Characters.addCharacter(character);
 
   response(ctx, 201, {
-    character,
+    dbCharacter,
   });
 };
 

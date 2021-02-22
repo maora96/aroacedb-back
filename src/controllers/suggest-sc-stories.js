@@ -98,9 +98,21 @@ const getAllStories = async (ctx) => {
   }
 };
 
+const getAllStoriesByCharacter = async (ctx) => {
+  const { id = null } = ctx.params;
+
+  if (id) {
+    const characterStories = await Suggest.getAllStories(id);
+    response(ctx, 201, { stories: characterStories });
+  } else {
+    response(ctx, 404, "ID can't be null");
+  }
+};
+
 module.exports = {
   addStory,
   getStory,
   getAllStories,
   deleteStory,
+  getAllStoriesByCharacter,
 };
