@@ -18,7 +18,7 @@ const getReviewsCount = async () => {
 
 const getStoriesCount = async () => {
   const q = {
-    text: "SELECT count(*) FROM stories",
+    text: "select count(distinct story_title) from stories ",
   };
   const query = await database.query(q);
   return query.rows;
