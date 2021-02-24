@@ -125,5 +125,7 @@ router.delete(
 );
 
 // email
-
+router.get("/email", function (ctx) {
+  ctx.body = "hello";
+});
 router.post("/email", Contact.contact);
