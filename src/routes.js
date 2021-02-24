@@ -14,6 +14,7 @@ const Permissions = require("./controllers/permissions");
 const SuggestSC = require("./controllers/suggest-sc-stories");
 const Session = require("./middlewares/session");
 const Download = require("./controllers/export");
+const Contact = require("./controllers/contact");
 
 // auth
 
@@ -122,3 +123,7 @@ router.delete(
   Session.verify,
   SuggestSC.deleteAllCharacterStories
 );
+
+// email
+
+router.post("/email", Contact.contact);

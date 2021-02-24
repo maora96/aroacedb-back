@@ -20,6 +20,7 @@
   "dependencies": {
     "@koa/cors": "^3.1.0",
     "@koa/router": "^10.0.0",
+    "@sendgrid/mail": "^7.4.2",
     "bcryptjs": "^2.4.3",
     "dotenv": "^8.2.0",
     "fast-csv": "^4.3.6",
@@ -29,6 +30,7 @@
     "koa": "^2.13.0",
     "koa-bodyparser": "^4.3.0",
     "koa-router": "^10.0.0",
+    "nodemailer": "^6.4.18",
     "nodemon": "^2.0.7",
     "pg": "^8.5.1"
   }
