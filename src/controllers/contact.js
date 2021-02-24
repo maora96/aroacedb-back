@@ -27,6 +27,7 @@ const contact = async (ctx) => {
     .send(msg)
     .then(() => {
       console.log("Email sent");
+      return response(ctx, 201, { message: "Email sent." });
     })
     .catch((error) => {
       console.error(error);
@@ -36,8 +37,6 @@ const contact = async (ctx) => {
         error: error.response.body,
       });
     });
-
-  return response(ctx, 201, { message: "Email sent." });
 };
 
 module.exports = { contact };
