@@ -10,7 +10,7 @@ const config = {
     pass: process.env.MAILTRAP_PASS,
   },
 };
-
+//
 const transport = nodemailer.createTransport(config);
 
 const sendEmail = async (from, to, subject, html) => {
