@@ -44,7 +44,7 @@ const deleteCharacter = async (id) => {
 
 const getAllCharacters = async () => {
   const q = {
-    text: "SELECT * FROM characters",
+    text: "SELECT * FROM characters order by character_name asc",
   };
 
   const query = await database.query(q);
@@ -53,7 +53,8 @@ const getAllCharacters = async () => {
 
 const getAllCharactersPaginated = async (characters_per_page, offset) => {
   const q = {
-    text: "SELECT * FROM characters limit $1 offset $2",
+    text:
+      "SELECT * FROM characters order by character_name asc limit $1 offset $2",
     values: [characters_per_page, offset],
   };
 
