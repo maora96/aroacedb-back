@@ -31,6 +31,10 @@ const contact = async (ctx) => {
     .catch((error) => {
       console.error(error);
       console.log(error.response.body);
+      return response(ctx, 401, {
+        message: "error",
+        error: error.response.body,
+      });
     });
 
   return response(ctx, 201, { message: "Email sent." });
