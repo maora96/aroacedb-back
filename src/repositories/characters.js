@@ -213,34 +213,44 @@ const searchCharacters = async (search) => {
 
   console.log(final);
 
-  //   const queries = [];
-  //   const stories_q = [];
-  //   search.forEach((s) => {
-  //     const text = `select distinct * from (SELECT * FROM characters WHERE character_name ILIKE '%${s}%' OR main_storyseries ILIKE '%${s}%' OR author ILIKE '%${s}%' OR genre ILIKE '%${s}%' OR type_of_rep ILIKE '%${s}%' OR gender ILIKE '%${s}%' OR importance ILIKE '%${s}%' OR sexual_orientation ILIKE '%${s}%' OR romantic_orientation ILIKE '%${s}%' OR relationships ILIKE '%${s}%' OR pairing_qpp_or_romantic ILIKE '%${s}%' OR rep_noteswarnings ILIKE '%${s}%' union  select * from "characters" c2
-  //     where c2.id in (select distinct character_id from stories
-  //     where story_title ilike '%${s}%'
-  //     or series_or_anthology ilike '%${s}%'
-  //     or genre ilike '%${s}%'
-  //     or story_length ilike '%${s}%'
-  //     or type_of_rep ilike '%${s}%'
-  //     or character_importance ilike '%${s}%'
-  //     or rep_noteswarnings ilike '%${s}%'
-  //     or other_noteswarnings ilike '%${s}%')) as css
-  //     `;
-  //     queries.push(text);
-  //   });
+  const q = {
+    text: final,
+  };
 
-  //   const formatted = [];
-  //   console.log(queries);
-  //   queries.forEach((q, i) => {
-  //     if (i < queries.length - 1) {
-  //       formatted.push(q + " UNION ");
-  //     } else {
-  //       formatted.push(q);
-  //     }
-  //   });
-  //   formatted.push(" order by character_name asc");
-  //   const final = formatted.join("");
+  const query = await database.query(q);
+
+  return query.rows;
+};
+
+const searchSingleField = async (search) => {
+  const queries = [];
+  const stories_q = [];
+  search.forEach((s) => {
+    const text = `select distinct * from (SELECT * FROM characters WHERE character_name ILIKE '%${s}%' OR main_storyseries ILIKE '%${s}%' OR author ILIKE '%${s}%' OR genre ILIKE '%${s}%' OR type_of_rep ILIKE '%${s}%' OR gender ILIKE '%${s}%' OR importance ILIKE '%${s}%' OR sexual_orientation ILIKE '%${s}%' OR romantic_orientation ILIKE '%${s}%' OR relationships ILIKE '%${s}%' OR pairing_qpp_or_romantic ILIKE '%${s}%' OR rep_noteswarnings ILIKE '%${s}%' union  select * from "characters" c2
+      where c2.id in (select distinct character_id from stories
+      where story_title ilike '%${s}%'
+      or series_or_anthology ilike '%${s}%'
+      or genre ilike '%${s}%'
+      or story_length ilike '%${s}%'
+      or type_of_rep ilike '%${s}%'
+      or character_importance ilike '%${s}%'
+      or rep_noteswarnings ilike '%${s}%'
+      or other_noteswarnings ilike '%${s}%')) as css
+      `;
+    queries.push(text);
+  });
+
+  const formatted = [];
+  console.log(queries);
+  queries.forEach((q, i) => {
+    if (i < queries.length - 1) {
+      formatted.push(q + " UNION ");
+    } else {
+      formatted.push(q);
+    }
+  });
+  formatted.push(" order by character_name asc");
+  const final = formatted.join("");
   const q = {
     text: final,
   };
@@ -300,4 +310,5 @@ module.exports = {
   deleteCharacter,
   getAllCharactersPaginated,
   searchCharactersPaginated,
+  searchSingleField,
 };

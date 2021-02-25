@@ -146,92 +146,100 @@ const getAllCharactersInfinite = async (ctx) => {
     type_of_rep = null,
   } = ctx.query;
 
-  const search = {};
+  const search_advanced = {};
   if (character_name) {
-    search.character_name = character_name;
+    search_advanced.character_name = character_name;
   }
   if (importance) {
-    search.importance = importance;
+    search_advanced.importance = importance;
   }
   if (author) {
-    search.author = author;
+    search_advanced.author = author;
   }
 
   if (gender) {
-    search.gender = gender;
+    search_advanced.gender = gender;
   }
 
   if (pairing_qpp_or_romantic) {
-    search.pairing_qpp_or_romantic = pairing_qpp_or_romantic;
+    search_advanced.pairing_qpp_or_romantic = pairing_qpp_or_romantic;
   }
 
   if (romantic_orientation) {
-    search.romantic_orientation = romantic_orientation;
+    search_advanced.romantic_orientation = romantic_orientation;
   }
 
   if (sexual_orientation) {
-    search.sexual_orientation = sexual_orientation;
+    search_advanced.sexual_orientation = sexual_orientation;
   }
 
   if (main_storyseries) {
-    search.main_storyseries = main_storyseries;
+    search_advanced.main_storyseries = main_storyseries;
   }
 
   if (genre) {
-    search.genre = genre;
+    search_advanced.genre = genre;
   }
 
   if (relationships) {
-    search.relationships = relationships;
+    search_advanced.relationships = relationships;
   }
 
   if (story_length) {
-    search.story_length = story_length;
+    search_advanced.story_length = story_length;
   }
 
   if (type_of_rep) {
-    search.type_of_rep = type_of_rep;
+    search_advanced.type_of_rep = type_of_rep;
   }
 
-  //   const { search = null } = ctx.query;
-  //   let one;
-  //   let two;
-  //   if (search) {
-  //     one = search.toLowerCase().split(" ");
-  //     two = [];
-  //     console.log("one", one);
-  //     for (let i = 0; i < one.length; i++) {
-  //       if (one[i].includes("/")) {
-  //         two.push(one[i].toUpperCase().replace(",", ""));
-  //       } else if (
-  //         one[i].includes("grayasexual") ||
-  //         one[i].includes("gray-sexual") ||
-  //         one[i].includes("greysexual") ||
-  //         one[i].includes("gray-sexual") ||
-  //         one[i].includes("graysexual") ||
-  //         one[i].includes("greyasexual")
-  //       ) {
-  //         one.splice(i, 1, "gray-asexual");
-  //         console.log("hiya:", one);
-  //         two.push(one[i]);
-  //       } else if (
-  //         one[i].includes("grayromantic") ||
-  //         one[i].includes("gray-romantic") ||
-  //         one[i].includes("greyromantic") ||
-  //         one[i].includes("gray-romantic") ||
-  //         one[i].includes("grayromantic") ||
-  //         one[i].includes("greyromantic")
-  //       ) {
-  //         one.splice(i, 1, "grey-romantic");
-  //         console.log("hiya:", one);
-  //         two.push(one[i]);
-  //       } else {
-  //         two.push(one[i][0].toUpperCase() + one[i].slice(1).replace(",", ""));
-  //       }
-  //     }
-  //   }
-  const characters = await Characters.searchCharacters(search);
-  response(ctx, 200, { characters });
+  const { search = null } = ctx.query;
+  let one;
+  let two;
+  if (search) {
+    one = search.toLowerCase().split(" ");
+    two = [];
+    console.log("one", one);
+    for (let i = 0; i < one.length; i++) {
+      if (one[i].includes("/")) {
+        two.push(one[i].toUpperCase().replace(",", ""));
+      } else if (
+        one[i].includes("grayasexual") ||
+        one[i].includes("gray-sexual") ||
+        one[i].includes("greysexual") ||
+        one[i].includes("gray-sexual") ||
+        one[i].includes("graysexual") ||
+        one[i].includes("greyasexual")
+      ) {
+        one.splice(i, 1, "gray-asexual");
+        console.log("hiya:", one);
+        two.push(one[i]);
+      } else if (
+        one[i].includes("grayromantic") ||
+        one[i].includes("gray-romantic") ||
+        one[i].includes("greyromantic") ||
+        one[i].includes("gray-romantic") ||
+        one[i].includes("grayromantic") ||
+        one[i].includes("greyromantic")
+      ) {
+        one.splice(i, 1, "grey-romantic");
+        console.log("hiya:", one);
+        two.push(one[i]);
+      } else {
+        two.push(one[i][0].toUpperCase() + one[i].slice(1).replace(",", ""));
+      }
+    }
+  }
+
+  if (search) {
+    console.log(search);
+    const characters = await Characters.searchSingleField(two);
+    response(ctx, 200, { characters });
+  } else {
+    const characters = await Characters.searchCharacters(search_advanced);
+    response(ctx, 200, { characters });
+    s;
+  }
 };
 
 const getAllCharacters = async (ctx) => {
