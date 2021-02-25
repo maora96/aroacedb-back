@@ -238,7 +238,6 @@ const getAllCharactersInfinite = async (ctx) => {
   } else {
     const characters = await Characters.searchCharacters(search_advanced);
     response(ctx, 200, { characters });
-    s;
   }
 };
 
