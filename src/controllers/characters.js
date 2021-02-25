@@ -143,6 +143,7 @@ const getAllCharactersInfinite = async (ctx) => {
     genre = null,
     relationships = null,
     story_length = null,
+    type_of_rep = null,
   } = ctx.query;
 
   const search = {};
@@ -186,6 +187,10 @@ const getAllCharactersInfinite = async (ctx) => {
 
   if (story_length) {
     search.story_length = story_length;
+  }
+
+  if (type_of_rep) {
+    search.type_of_rep = type_of_rep;
   }
 
   //   const { search = null } = ctx.query;

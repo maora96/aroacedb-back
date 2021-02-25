@@ -180,7 +180,16 @@ const searchCharacters = async (search) => {
       qs.push(" AND ");
       qs.push(`relationships ilike '%${search.relationships}%'`);
     } else {
-      s.push(`relationships ilike '%${search.relationships}%'`);
+      qs.push(`relationships ilike '%${search.relationships}%'`);
+    }
+  }
+
+  if (search.type_of_rep) {
+    if (qs.length > 1) {
+      qs.push(" AND ");
+      qs.push(`type_of_rep ilike '%${search.type_of_rep}%'`);
+    } else {
+      qs.push(`type_of_rep ilike '%${search.type_of_rep}%'`);
     }
   }
 
