@@ -143,7 +143,7 @@ const getAllCharactersInfinite = async (ctx) => {
     genre = null,
     relationships = null,
     story_length = null,
-  } = ctx.request.body;
+  } = ctx.query;
 
   const search = {};
   if (character_name) {
