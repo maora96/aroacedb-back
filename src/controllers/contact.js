@@ -12,8 +12,8 @@ const contact = async (ctx) => {
     <p><strong>Message:</strong> ${message}</p>`;
 
   const msg = {
-    to: "renoliveira96@gmail.com", // Change to your recipient
-    from: "renoliveira96@gmail.com", // Change to your verified sender
+    to: "aroacedatabase@gmail.com", // Change to your recipient
+    from: "senderaroacedb@gmail.com", // Change to your verified sender
     subject: "Message from aroacedatabase.com",
     text: "and easy to do anywhere, even with Node.js",
     html: `
