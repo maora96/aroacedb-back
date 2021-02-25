@@ -131,44 +131,101 @@ const deleteCharacter = async (ctx) => {
 };
 
 const getAllCharactersInfinite = async (ctx) => {
-  const { search = null } = ctx.query;
-  let one;
-  let two;
-  if (search) {
-    one = search.toLowerCase().split(" ");
-    two = [];
-    console.log("one", one);
-    for (let i = 0; i < one.length; i++) {
-      if (one[i].includes("/")) {
-        two.push(one[i].toUpperCase().replace(",", ""));
-      } else if (
-        one[i].includes("grayasexual") ||
-        one[i].includes("gray-sexual") ||
-        one[i].includes("greysexual") ||
-        one[i].includes("gray-sexual") ||
-        one[i].includes("graysexual") ||
-        one[i].includes("greyasexual")
-      ) {
-        one.splice(i, 1, "gray-asexual");
-        console.log("hiya:", one);
-        two.push(one[i]);
-      } else if (
-        one[i].includes("grayromantic") ||
-        one[i].includes("gray-romantic") ||
-        one[i].includes("greyromantic") ||
-        one[i].includes("gray-romantic") ||
-        one[i].includes("grayromantic") ||
-        one[i].includes("greyromantic")
-      ) {
-        one.splice(i, 1, "grey-romantic");
-        console.log("hiya:", one);
-        two.push(one[i]);
-      } else {
-        two.push(one[i][0].toUpperCase() + one[i].slice(1).replace(",", ""));
-      }
-    }
+  const {
+    character_name = null,
+    importance = null,
+    author = null,
+    gender = null,
+    pairing_qpp_or_romantic = null,
+    romantic_orientation = null,
+    sexual_orientation = null,
+    main_storyseries = null,
+    genre = null,
+    relationships = null,
+    story_length = null,
+  } = ctx.request.body;
+
+  const search = {};
+  if (character_name) {
+    search.character_name = character_name;
   }
-  const characters = await Characters.searchCharacters(two);
+  if (importance) {
+    search.importance = importance;
+  }
+  if (author) {
+    search.author = author;
+  }
+
+  if (gender) {
+    search.gender = gender;
+  }
+
+  if (pairing_qpp_or_romantic) {
+    search.pairing_qpp_or_romantic = pairing_qpp_or_romantic;
+  }
+
+  if (romantic_orientation) {
+    search.romantic_orientation = romantic_orientation;
+  }
+
+  if (sexual_orientation) {
+    search.sexual_orientation = sexual_orientation;
+  }
+
+  if (main_storyseries) {
+    search.main_storyseries = main_storyseries;
+  }
+
+  if (genre) {
+    search.genre = genre;
+  }
+
+  if (relationships) {
+    search.relationships = relationships;
+  }
+
+  if (story_length) {
+    search.story_length = story_length;
+  }
+
+  //   const { search = null } = ctx.query;
+  //   let one;
+  //   let two;
+  //   if (search) {
+  //     one = search.toLowerCase().split(" ");
+  //     two = [];
+  //     console.log("one", one);
+  //     for (let i = 0; i < one.length; i++) {
+  //       if (one[i].includes("/")) {
+  //         two.push(one[i].toUpperCase().replace(",", ""));
+  //       } else if (
+  //         one[i].includes("grayasexual") ||
+  //         one[i].includes("gray-sexual") ||
+  //         one[i].includes("greysexual") ||
+  //         one[i].includes("gray-sexual") ||
+  //         one[i].includes("graysexual") ||
+  //         one[i].includes("greyasexual")
+  //       ) {
+  //         one.splice(i, 1, "gray-asexual");
+  //         console.log("hiya:", one);
+  //         two.push(one[i]);
+  //       } else if (
+  //         one[i].includes("grayromantic") ||
+  //         one[i].includes("gray-romantic") ||
+  //         one[i].includes("greyromantic") ||
+  //         one[i].includes("gray-romantic") ||
+  //         one[i].includes("grayromantic") ||
+  //         one[i].includes("greyromantic")
+  //       ) {
+  //         one.splice(i, 1, "grey-romantic");
+  //         console.log("hiya:", one);
+  //         two.push(one[i]);
+  //       } else {
+  //         two.push(one[i][0].toUpperCase() + one[i].slice(1).replace(",", ""));
+  //       }
+  //     }
+  //   }
+  const characters = await Characters.searchCharacters(search);
   response(ctx, 200, { characters });
 };
 

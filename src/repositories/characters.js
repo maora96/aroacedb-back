@@ -88,34 +88,150 @@ const updateCharacter = async (character) => {
 };
 
 const searchCharacters = async (search) => {
-  const queries = [];
-  const stories_q = [];
-  search.forEach((s) => {
-    const text = `select distinct * from (SELECT * FROM characters WHERE character_name ILIKE '%${s}%' OR main_storyseries ILIKE '%${s}%' OR author ILIKE '%${s}%' OR genre ILIKE '%${s}%' OR type_of_rep ILIKE '%${s}%' OR gender ILIKE '%${s}%' OR importance ILIKE '%${s}%' OR sexual_orientation ILIKE '%${s}%' OR romantic_orientation ILIKE '%${s}%' OR relationships ILIKE '%${s}%' OR pairing_qpp_or_romantic ILIKE '%${s}%' OR rep_noteswarnings ILIKE '%${s}%' union  select * from "characters" c2 
-    where c2.id in (select distinct character_id from stories 
-    where story_title ilike '%${s}%'
-    or series_or_anthology ilike '%${s}%'
-    or genre ilike '%${s}%'
-    or story_length ilike '%${s}%'
-    or type_of_rep ilike '%${s}%'
-    or character_importance ilike '%${s}%'
-    or rep_noteswarnings ilike '%${s}%'
-    or other_noteswarnings ilike '%${s}%')) as css 
-    `;
-    queries.push(text);
-  });
+  console.log("search", search);
+  const qs = ["select * from characters where "];
 
-  const formatted = [];
-  console.log(queries);
-  queries.forEach((q, i) => {
-    if (i < queries.length - 1) {
-      formatted.push(q + " UNION ");
+  if (search.character_name) {
+    if (qs.length > 1) {
+      qs.push(" AND ");
+      qs.push(`character_name ilike '%${search.character_name}%'`);
     } else {
-      formatted.push(q);
+      qs.push(`character_name ilike '%${search.character_name}%'`);
     }
-  });
-  formatted.push(" order by character_name asc");
-  const final = formatted.join("");
+  }
+  if (search.importance) {
+    if (qs.length > 1) {
+      qs.push(" AND ");
+      qs.push(`importance ilike '%${search.importance}%'`);
+    } else {
+      qs.push(`importance ilike '%${search.importance}%'`);
+    }
+  }
+
+  if (search.author) {
+    if (qs.length > 1) {
+      qs.push(" AND ");
+      qs.push(`author ilike '%${search.author}%'`);
+    } else {
+      qs.push(`author ilike '%${search.author}%'`);
+    }
+  }
+
+  if (search.gender) {
+    if (qs.length > 1) {
+      qs.push(" AND ");
+      qs.push(`gender ilike '%${search.gender}%'`);
+    } else {
+      qs.push(`gender ilike '%${search.gender}%'`);
+    }
+  }
+
+  if (search.pairing_qpp_or_romantic) {
+    if (qs.length > 1) {
+      qs.push(" AND ");
+      qs.push(
+        `pairing_qpp_or_romantic ilike '%${search.pairing_qpp_or_romantic}%'`
+      );
+    } else {
+      qs.push(
+        `pairing_qpp_or_romantic ilike '%${search.pairing_qpp_or_romantic}%'`
+      );
+    }
+  }
+
+  if (search.romantic_orientation) {
+    if (qs.length > 1) {
+      qs.push(" AND ");
+      qs.push(`romantic_orientation ilike '%${search.romantic_orientation}%'`);
+    } else {
+      qs.push(`romantic_orientation ilike '%${search.romantic_orientation}%'`);
+    }
+  }
+
+  if (search.sexual_orientation) {
+    if (qs.length > 1) {
+      qs.push(" AND ");
+      qs.push(`sexual_orientation ilike '%${search.sexual_orientation}%'`);
+    } else {
+      qs.push(`sexual_orientation ilike '%${search.sexual_orientation}%'`);
+    }
+  }
+
+  if (search.main_storyseries) {
+    if (qs.length > 1) {
+      qs.push(" AND ");
+      qs.push(`main_storyseries ilike '%${search.main_storyseries}%'`);
+    } else {
+      qs.push(`main_storyseries ilike '%${search.main_storyseries}%'`);
+    }
+  }
+
+  if (search.genre) {
+    if (qs.length > 1) {
+      qs.push(" AND ");
+      qs.push(`genre ilike '%${search.genre}%'`);
+    } else {
+      qs.push(`genre ilike '%${search.genre}%'`);
+    }
+  }
+
+  if (search.relationships) {
+    if (qs.length > 1) {
+      qs.push(" AND ");
+      qs.push(`relationships ilike '%${search.relationships}%'`);
+    } else {
+      s.push(`relationships ilike '%${search.relationships}%'`);
+    }
+  }
+
+  console.log(qs);
+  let qs_stories = "";
+
+  if (search.story_length) {
+    qs_stories = `select distinct character_id from stories where story_length ilike '%${search.story_length}%'`;
+  }
+
+  const new_formatted = qs.join("");
+  let final = ``;
+  if (qs_stories) {
+    final =
+      `select distinct * from (` +
+      new_formatted +
+      `) c2 where c2.id in (${qs_stories}) `;
+  } else {
+    final = new_formatted;
+  }
+
+  console.log(final);
+
+  //   const queries = [];
+  //   const stories_q = [];
+  //   search.forEach((s) => {
+  //     const text = `select distinct * from (SELECT * FROM characters WHERE character_name ILIKE '%${s}%' OR main_storyseries ILIKE '%${s}%' OR author ILIKE '%${s}%' OR genre ILIKE '%${s}%' OR type_of_rep ILIKE '%${s}%' OR gender ILIKE '%${s}%' OR importance ILIKE '%${s}%' OR sexual_orientation ILIKE '%${s}%' OR romantic_orientation ILIKE '%${s}%' OR relationships ILIKE '%${s}%' OR pairing_qpp_or_romantic ILIKE '%${s}%' OR rep_noteswarnings ILIKE '%${s}%' union  select * from "characters" c2
+  //     where c2.id in (select distinct character_id from stories
+  //     where story_title ilike '%${s}%'
+  //     or series_or_anthology ilike '%${s}%'
+  //     or genre ilike '%${s}%'
+  //     or story_length ilike '%${s}%'
+  //     or type_of_rep ilike '%${s}%'
+  //     or character_importance ilike '%${s}%'
+  //     or rep_noteswarnings ilike '%${s}%'
+  //     or other_noteswarnings ilike '%${s}%')) as css
+  //     `;
+  //     queries.push(text);
+  //   });
+
+  //   const formatted = [];
+  //   console.log(queries);
+  //   queries.forEach((q, i) => {
+  //     if (i < queries.length - 1) {
+  //       formatted.push(q + " UNION ");
+  //     } else {
+  //       formatted.push(q);
+  //     }
+  //   });
+  //   formatted.push(" order by character_name asc");
+  //   const final = formatted.join("");
   const q = {
     text: final,
   };
