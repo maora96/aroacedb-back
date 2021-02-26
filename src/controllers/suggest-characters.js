@@ -126,10 +126,59 @@ const getAllCharacters = async (ctx) => {
   }
 };
 
+const updateCharacter = async (ctx) => {
+  const {
+    character_name = null,
+    main_storyseries = null,
+    author = null,
+    genre = null,
+    type_of_rep = null,
+    gender = null,
+    importance = null,
+    sexual_orientation = null,
+    romantic_orientation = null,
+    relationships = null,
+    pairing_qpp_or_romantic = null,
+    rep_noteswarnings = null,
+    cover = null,
+  } = ctx.request.body;
+
+  const { id = null } = ctx.params;
+  const updatedCharacter = {
+    id,
+    character_name,
+    main_storyseries,
+    author,
+    genre,
+    type_of_rep,
+    gender,
+    importance,
+    sexual_orientation,
+    romantic_orientation,
+    relationships,
+    pairing_qpp_or_romantic,
+    rep_noteswarnings,
+    cover,
+  };
+
+  if (id) {
+    const character = await Suggest.getCharacter(id);
+    if (character) {
+      const update = await Suggest.updateCharacter(updatedCharacter);
+      response(ctx, 200, update);
+    } else {
+      response(ctx, 404, { message: "Character not found." });
+    }
+  } else {
+    response(ctx, 404, { message: "ID needed." });
+  }
+};
+
 module.exports = {
   addCharacter,
   getRecentSuggested,
   getCharacter,
   getAllCharacters,
   deleteCharacter,
+  updateCharacter,
 };

@@ -70,6 +70,31 @@ const deleteCharacter = async (id) => {
   return query.rows;
 };
 
+const updateCharacter = async (character) => {
+  const q = {
+    text:
+      "UPDATE ch_suggestions set character_name = $1, main_storyseries = $2, author = $3, genre = $4, type_of_rep = $5, gender = $6, importance = $7, sexual_orientation = $8, romantic_orientation = $9, relationships = $10, pairing_qpp_or_romantic = $11, rep_noteswarnings = $12, cover = $13 WHERE id = $14 returning *",
+    values: [
+      character.character_name,
+      character.main_storyseries,
+      character.author,
+      character.genre,
+      character.type_of_rep,
+      character.gender,
+      character.importance,
+      character.sexual_orientation,
+      character.romantic_orientation,
+      character.relationships,
+      character.pairing_qpp_or_romantic,
+      character.rep_noteswarnings,
+      character.cover,
+      character.id,
+    ],
+  };
+  const query = await database.query(q);
+  return query.rows.shift();
+};
+
 module.exports = {
   addCharacter,
   getRecentSuggested,
@@ -77,4 +102,5 @@ module.exports = {
   getCharacter,
   deleteCharacter,
   getAllCharactersPaginated,
+  updateCharacter,
 };

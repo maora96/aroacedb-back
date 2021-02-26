@@ -71,6 +71,12 @@ router.delete(
   Session.verify,
   SuggestCharacters.deleteCharacter
 );
+//router.put("/characters/:id", Session.verify, Characters.updateCharacter);
+router.put(
+  "/suggest/characters/:id",
+  Session.verify,
+  SuggestCharacters.updateCharacter
+);
 
 // suggest stories
 
