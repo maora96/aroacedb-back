@@ -3,23 +3,23 @@ const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const contact = async (ctx) => {
-  const { email, name, message } = ctx.request.body;
+  const { email, name, message, subject } = ctx.request.body;
 
   const html = `
     <p>A message was sent from the aroacedatabase.com contact page.</p> 
     <p><strong>Name:</strong> ${name}</p>
     <p><strong>Email:</strong> ${email}</p>
+    <p><strong>Subject:</strong> ${subject}</p>
     <p><strong>Message:</strong> ${message}</p>`;
 
   const msg = {
     to: "aroacedatabase@gmail.com", // Change to your recipient
     from: "senderaroacedb@gmail.com", // Change to your verified sender
-    subject: "Message from aroacedatabase.com",
-    text: "and easy to do anywhere, even with Node.js",
-    html: `
-    <p>A message was sent from the aroacedatabase.com contact page.</p> 
+    subject: `{${subject}}`,
+    html: ` <p>A message was sent from the aroacedatabase.com contact page.</p> 
     <p><strong>Name:</strong> ${name}</p>
     <p><strong>Email:</strong> ${email}</p>
+    <p><strong>Subject:</strong> ${subject}</p>
     <p><strong>Message:</strong> ${message}</p>`,
   };
 
