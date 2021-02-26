@@ -241,7 +241,6 @@ const searchSingleField = async (search) => {
   });
 
   const formatted = [];
-  console.log(queries);
   queries.forEach((q, i) => {
     if (i < queries.length - 1) {
       formatted.push(q + " UNION ");
@@ -251,6 +250,7 @@ const searchSingleField = async (search) => {
   });
   formatted.push(" order by character_name asc");
   const final = formatted.join("");
+  console.log(final);
   const q = {
     text: final,
   };

@@ -223,8 +223,32 @@ const getAllCharactersInfinite = async (ctx) => {
         one[i].includes("greyromantic")
       ) {
         one.splice(i, 1, "grey-romantic");
-        console.log("hiya:", one);
         two.push(one[i]);
+      } else if (one[i].includes("acespec")) {
+        two.push(one[i][0].toUpperCase() + one[i].slice(1).replace(",", ""));
+        two.push("demisexual");
+        two.push("gray-sexual");
+        two.push("gray-sexual");
+        two.push("grey-sexual");
+      } else if (one[i].includes("arospec") || one[i].includes("Arospec")) {
+        console.log("hi", one);
+        two.push(one[i][0].toUpperCase() + one[i].slice(1).replace(",", ""));
+        two.push("demiromantic");
+        two.push("demi-romantic");
+        two.push("gray-romantic");
+        two.push("grey-romantic");
+      } else if (one[i].includes("allosexual")) {
+        two.push(one[i][0].toUpperCase() + one[i].slice(1).replace(",", ""));
+        two.push("heterosexual");
+        two.push("bisexual");
+        two.push("pansexual");
+        two.push("gay");
+      } else if (one[i].includes("alloromantic")) {
+        two.push(one[i][0].toUpperCase() + one[i].slice(1).replace(",", ""));
+        two.push("heteroromanti");
+        two.push("biromantic");
+        two.push("panromantic");
+        two.push("homoromantic");
       } else {
         two.push(one[i][0].toUpperCase() + one[i].slice(1).replace(",", ""));
       }
@@ -248,7 +272,6 @@ const getAllCharacters = async (ctx) => {
   if (search) {
     one = search.toLowerCase().split(" ");
     two = [];
-    console.log(one);
     for (let i = 0; i < one.length; i++) {
       if (one[i].includes("/")) {
         two.push(one[i].toUpperCase().replace(",", ""));
@@ -278,7 +301,8 @@ const getAllCharacters = async (ctx) => {
         two.push(one[i][0].toUpperCase() + one[i].slice(1).replace(",", ""));
         two.push("demisexual");
         two.push("gray-sexual");
-      } else if (one[i].includes("arospec")) {
+      } else if (one[i].includes("arospec") || one[i].includes("Arospec")) {
+        console.log("hi", one);
         two.push(one[i][0].toUpperCase() + one[i].slice(1).replace(",", ""));
         two.push("demiromantic");
         two.push("demi-romantic");
@@ -302,8 +326,7 @@ const getAllCharacters = async (ctx) => {
 
   let characters;
   let paginated_character;
-  let stories;
-  let paginated_stories;
+  console.log(two);
   const characters_per_page = 20;
 
   if (!search) {
