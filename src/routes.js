@@ -139,3 +139,5 @@ router.post("/email", Contact.contact);
 // about
 router.put("/about/database", About.updateAboutDatabase);
 router.put("/about/team", About.updateAboutTeam);
+router.get("/about/database", About.getAboutDatabase);
+router.get("/about/team", About.getAboutTeam);

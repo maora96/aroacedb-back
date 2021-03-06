@@ -17,6 +17,14 @@ const updateAboutDatabase = async (ctx) => {
   response(ctx, 201, { dbAbout });
 };
 
+const getAboutDatabase = async (ctx) => {
+  const about = await About.getAboutDatabase();
+  console.log(about);
+  if (about) {
+    response(ctx, 201, { about });
+  }
+};
+
 const updateAboutTeam = async (ctx) => {
   const { the_creator, gremlins, dev } = ctx.request.body;
 
@@ -34,7 +42,16 @@ const updateAboutTeam = async (ctx) => {
   response(ctx, 201, { dbAbout });
 };
 
+const getAboutTeam = async (ctx) => {
+  const about = await About.getAboutTeam();
+  if (about) {
+    response(ctx, 201, { about });
+  }
+};
+
 module.exports = {
   updateAboutDatabase,
   updateAboutTeam,
+  getAboutDatabase,
+  getAboutTeam,
 };
