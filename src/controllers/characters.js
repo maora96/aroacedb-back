@@ -375,7 +375,7 @@ const getRandomCharacter = async (ctx) => {
 const getCanonLeads = async (ctx) => {
   const character = await Characters.getCanonLeads();
   if (character) {
-    response(ctx, 200, { character });
+    response(ctx, 200, { character, length: character.length });
   } else {
     response(ctx, 404, { message: "No character found" });
   }
