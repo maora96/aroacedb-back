@@ -258,7 +258,7 @@ const getAllCharactersInfinite = async (ctx) => {
   if (search) {
     console.log(search);
     const characters = await Characters.searchSingleField(two);
-    response(ctx, 200, { characters });
+    response(ctx, 200, { characters, length: characters.length });
   } else {
     const characters = await Characters.searchCharacters(search_advanced);
     response(ctx, 200, { characters });
