@@ -15,6 +15,7 @@ const SuggestSC = require("./controllers/suggest-sc-stories");
 const Session = require("./middlewares/session");
 const Download = require("./controllers/export");
 const Contact = require("./controllers/contact");
+const About = require("./controllers/about");
 
 // auth
 
@@ -133,7 +134,8 @@ router.delete(
 router.put("/suggest/sc/stories/:id", Session.verify, SuggestSC.updateStory);
 
 // email
-router.get("/email", function (ctx) {
-  ctx.body = "hello";
-});
 router.post("/email", Contact.contact);
+
+// about
+router.put("/about/database", About.updateAboutDatabase);
+router.put("/about/team", About.updateAboutTeam);
