@@ -129,6 +129,7 @@ router.delete(
   Session.verify,
   SuggestSC.deleteAllCharacterStories
 );
+router.put("/suggest/sc/stories/:id", Session.verify, SuggestSC.updateStory);
 
 // email
 router.get("/email", function (ctx) {

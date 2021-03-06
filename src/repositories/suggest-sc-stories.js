@@ -76,11 +76,44 @@ const deleteStory = async (id) => {
   return query.rows;
 };
 
+const updateStory = async (
+  id,
+  story_title,
+  series_or_anthology,
+  genre,
+  story_length,
+  type_of_rep,
+  character_importance,
+  rep_noteswarnings,
+  other_noteswarnings,
+  cover
+) => {
+  const q = {
+    text:
+      "UPDATE st_sc_suggestions set story_title = $1, series_or_anthology = $2, genre = $3, story_length = $4, type_of_rep = $5, character_importance = $6, rep_noteswarnings = $7, other_noteswarnings = $8, cover = $9 WHERE id = $10 returning *",
+    values: [
+      story_title,
+      series_or_anthology,
+      genre,
+      story_length,
+      type_of_rep,
+      character_importance,
+      rep_noteswarnings,
+      other_noteswarnings,
+      cover,
+      id,
+    ],
+  };
+  const query = await database.query(q);
+  return query.rows.shift();
+};
+
 module.exports = {
   getStory,
   getAllStories,
   deleteStory,
   addStory,
+  updateStory,
   getAllStoriesPaginated,
   getAllStoriesByCharacter,
   deleteAllCharacterStories,

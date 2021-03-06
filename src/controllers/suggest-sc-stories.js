@@ -118,11 +118,52 @@ const deleteAllCharacterStories = async (ctx) => {
   }
 };
 
+const updateStory = async (ctx) => {
+  const {
+    story_title = null,
+    series_or_anthology = null,
+    genre = null,
+    story_length = null,
+    type_of_rep = null,
+    character_importance = null,
+    rep_noteswarnings = null,
+    other_noteswarnings = null,
+    cover = null,
+  } = ctx.request.body;
+
+  const { id = null } = ctx.params;
+  console.log(id);
+
+  if (id) {
+    const story = await Suggest.getStory(id);
+    if (story) {
+      const update = await Suggest.updateStory(
+        id,
+        story_title,
+        series_or_anthology,
+        genre,
+        story_length,
+        type_of_rep,
+        character_importance,
+        rep_noteswarnings,
+        other_noteswarnings,
+        cover
+      );
+      response(ctx, 200, update);
+    } else {
+      response(ctx, 404, { message: "Story not found." });
+    }
+  } else {
+    response(ctx, 404, { message: "ID needed." });
+  }
+};
+
 module.exports = {
   addStory,
   getStory,
   getAllStories,
   deleteStory,
+  updateStory,
   getAllStoriesByCharacter,
   deleteAllCharacterStories,
 };
