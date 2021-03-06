@@ -300,6 +300,17 @@ const getRandomCharacter = async () => {
   return query.rows[0];
 };
 
+const getCanonLeads = async () => {
+  const q = {
+    text:
+      "select * from characters where (importance = 'Lead' or importance = 'Main') and (type_of_rep = 'Word Used' or type_of_rep = 'On Page') ",
+  };
+
+  const query = await database.query(q);
+
+  return query.rows;
+};
+
 module.exports = {
   addCharacter,
   getCharacter,
@@ -311,4 +322,5 @@ module.exports = {
   getAllCharactersPaginated,
   searchCharactersPaginated,
   searchSingleField,
+  getCanonLeads,
 };

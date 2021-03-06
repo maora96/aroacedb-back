@@ -372,6 +372,15 @@ const getRandomCharacter = async (ctx) => {
   }
 };
 
+const getCanonLeads = async (ctx) => {
+  const character = await Characters.getCanonLeads();
+  if (character) {
+    response(ctx, 200, character);
+  } else {
+    response(ctx, 404, { message: "No character found" });
+  }
+};
+
 module.exports = {
   addCharacter,
   updateCharacter,
@@ -380,4 +389,5 @@ module.exports = {
   getRandomCharacter,
   deleteCharacter,
   getAllCharactersInfinite,
+  getCanonLeads,
 };

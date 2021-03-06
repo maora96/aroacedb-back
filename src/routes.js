@@ -33,6 +33,7 @@ router.get("/characters", Characters.getAllCharacters);
 router.get("/character", Characters.getRandomCharacter);
 router.delete("/characters/:id", Session.verify, Characters.deleteCharacter);
 router.get("/character/infinite", Characters.getAllCharactersInfinite);
+router.get("/characters/search/canonleads", Characters.getCanonLeads);
 
 // stories
 
