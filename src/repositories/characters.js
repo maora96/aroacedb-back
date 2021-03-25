@@ -142,18 +142,65 @@ const searchCharacters = async (search) => {
   if (search.romantic_orientation) {
     if (qs.length > 1) {
       qs.push(" AND ");
-      qs.push(`romantic_orientation ilike '%${search.romantic_orientation}%'`);
+      if (search.romantic_orientation === "Arospec") {
+        qs.push(
+          `romantic_orientation ilike '%${search.romantic_orientation}%' or romantic_orientation ilike '%demiromantic%' or romantic_orientation ilike '%demi-romantic%'or romantic_orientation ilike '%gray-romantic%' or romantic_orientation ilike '%grey-romantic%' or romantic_orientation ilike '%aromantic%'`
+        );
+      } else if (search.romantic_orientation === "Alloromantic") {
+        qs.push(
+          `romantic_orientation ilike '%${search.romantic_orientation}%' or romantic_orientation ilike '%heteroromantic%' or romantic_orientation ilike '%biromantic%'or romantic_orientation ilike '%panromantic%' or romantic_orientation ilike '%homoromantic%'`
+        );
+      } else {
+        qs.push(
+          `romantic_orientation ilike '%${search.romantic_orientation}%'`
+        );
+      }
     } else {
-      qs.push(`romantic_orientation ilike '%${search.romantic_orientation}%'`);
+      if (search.romantic_orientation === "Arospec") {
+        qs.push(
+          `romantic_orientation ilike '%${search.romantic_orientation}%' or romantic_orientation ilike '%demiromantic%' or romantic_orientation ilike '%demi-romantic%'or romantic_orientation ilike '%gray-romantic%' or romantic_orientation ilike '%grey-romantic%' or romantic_orientation ilike '%aromantic%'`
+        );
+      } else if (search.romantic_orientation === "Alloromantic") {
+        qs.push(
+          `romantic_orientation ilike '%${search.romantic_orientation}%' or romantic_orientation ilike '%heteroromantic%' or romantic_orientation ilike '%biromantic%'or romantic_orientation ilike '%panromantic%' or romantic_orientation ilike '%homoromantic%'`
+        );
+      } else {
+        qs.push(
+          `romantic_orientation ilike '%${search.romantic_orientation}%'`
+        );
+      }
     }
   }
 
   if (search.sexual_orientation) {
     if (qs.length > 1) {
       qs.push(" AND ");
-      qs.push(`sexual_orientation ilike '%${search.sexual_orientation}%'`);
+      if (search.sexual_orientation[0] === '"') {
+        console.log("starts with '");
+      }
+      if (search.sexual_orientation === "Acespec") {
+        qs.push(
+          `sexual_orientation ilike '%${search.sexual_orientation}%' or sexual_orientation ilike '%demisexual%' or sexual_orientation ilike '%gray-sexual%'or sexual_orientation ilike '%graysexual%' or sexual_orientation ilike '%grey-sexual%' or sexual_orientation ilike '%asexual%'`
+        );
+      } else if (search.sexual_orientation === "Allosexual") {
+        qs.push(
+          `sexual_orientation ilike '%${search.sexual_orientation}%' or sexual_orientation ilike '%heterosexual%' or sexual_orientation ilike '%bisexual%'or sexual_orientation ilike '%pansexual%' or sexual_orientation ilike '%gay%'`
+        );
+      } else {
+        qs.push(`sexual_orientation ilike '%${search.sexual_orientation}%'`);
+      }
     } else {
-      qs.push(`sexual_orientation ilike '%${search.sexual_orientation}%'`);
+      if (search.sexual_orientation === "Acespec") {
+        qs.push(
+          `sexual_orientation ilike '%${search.sexual_orientation}%' or sexual_orientation ilike '%demisexual%' or sexual_orientation ilike '%gray-sexual%'or sexual_orientation ilike '%graysexual%' or sexual_orientation ilike '%grey-sexual%' or sexual_orientation ilike '%asexual%'`
+        );
+      } else if (search.sexual_orientation === "Allosexual") {
+        qs.push(
+          `sexual_orientation ilike '%${search.sexual_orientation}%' or sexual_orientation ilike '%heterosexual%' or sexual_orientation ilike '%bisexual%'or sexual_orientation ilike '%pansexual%' or sexual_orientation ilike '%gay%'`
+        );
+      } else {
+        qs.push(`sexual_orientation ilike '%${search.sexual_orientation}%'`);
+      }
     }
   }
 
@@ -226,18 +273,36 @@ const searchSingleField = async (search) => {
   const queries = [];
   const stories_q = [];
   search.forEach((s) => {
-    const text = `select distinct * from (SELECT * FROM characters WHERE character_name ILIKE '%${s}%' OR main_storyseries ILIKE '%${s}%' OR author ILIKE '%${s}%' OR genre ILIKE '%${s}%' OR type_of_rep ILIKE '%${s}%' OR gender ILIKE '%${s}%' OR importance ILIKE '%${s}%' OR sexual_orientation ILIKE '%${s}%' OR romantic_orientation ILIKE '%${s}%' OR relationships ILIKE '%${s}%' OR pairing_qpp_or_romantic ILIKE '%${s}%' OR rep_noteswarnings ILIKE '%${s}%' union  select * from "characters" c2
+    if (s[0] === '"' && s[s.length - 1] === '"') {
+      let f = s.slice(0, -1);
+      let final = f.substring(1);
+
+      const text = `select distinct * from (SELECT * FROM characters WHERE character_name ILIKE '${final}' OR main_storyseries iLIKE '${final}' OR author ILIKE '%${final}%' OR genre ILIKE '${final}' OR type_of_rep ILIKE '%${s}%' OR gender ILIKE '${final}' OR importance ILIKE '%${final}%' OR sexual_orientation ILIKE '${final}' OR romantic_orientation ILIKE '${final}' OR relationships ILIKE '${s}' OR pairing_qpp_or_romantic ILIKE '${s}' OR rep_noteswarnings ILIKE '${final}' union  select * from "characters" c2
       where c2.id in (select distinct character_id from stories
-      where story_title ilike '%${s}%'
-      or series_or_anthology ilike '%${s}%'
-      or genre ilike '%${s}%'
-      or story_length ilike '%${s}%'
-      or type_of_rep ilike '%${s}%'
-      or character_importance ilike '%${s}%'
-      or rep_noteswarnings ilike '%${s}%'
-      or other_noteswarnings ilike '%${s}%')) as css
+      where story_title ilike '${final}'
+      or series_or_anthology ilike '${final}'
+      or genre ilike '${final}'
+      or story_length ilike '${final}'
+      or type_of_rep ilike '${final}'
+      or character_importance ilike '${final}'
+      or rep_noteswarnings ilike '${final}'
+      or other_noteswarnings ilike '${final}')) as css
       `;
-    queries.push(text);
+      queries.push(text);
+    } else {
+      const text = `select distinct * from (SELECT * FROM characters WHERE character_name ILIKE '%${s}%' OR main_storyseries ILIKE '%${s}%' OR author ILIKE '%${s}%' OR genre ILIKE '%${s}%' OR type_of_rep ILIKE '%${s}%' OR gender ILIKE '%${s}%' OR importance ILIKE '%${s}%' OR sexual_orientation ILIKE '%${s}%' OR romantic_orientation ILIKE '%${s}%' OR relationships ILIKE '%${s}%' OR pairing_qpp_or_romantic ILIKE '%${s}%' OR rep_noteswarnings ILIKE '%${s}%' union  select * from "characters" c2
+        where c2.id in (select distinct character_id from stories
+        where story_title ilike '%${s}%'
+        or series_or_anthology ilike '%${s}%'
+        or genre ilike '%${s}%'
+        or story_length ilike '%${s}%'
+        or type_of_rep ilike '%${s}%'
+        or character_importance ilike '%${s}%'
+        or rep_noteswarnings ilike '%${s}%'
+        or other_noteswarnings ilike '%${s}%')) as css
+        `;
+      queries.push(text);
+    }
   });
 
   const formatted = [];
