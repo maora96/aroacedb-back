@@ -381,6 +381,27 @@ const getCanonLeads = async (ctx) => {
   }
 };
 
+const getCanonAces = async (ctx) => {
+  console.log("haskldasd");
+  const character = await Characters.getCanonAces();
+  console.log(character);
+  if (character) {
+    response(ctx, 200, { character, length: character.length });
+  } else {
+    response(ctx, 404, { message: "No character found" });
+  }
+};
+
+const getCanonAros = async (ctx) => {
+  console.log("haskldasd");
+  const character = await Characters.getCanonAros();
+  if (character) {
+    response(ctx, 200, { character, length: character.length });
+  } else {
+    response(ctx, 404, { message: "No character found" });
+  }
+};
+
 module.exports = {
   addCharacter,
   updateCharacter,
@@ -390,4 +411,6 @@ module.exports = {
   deleteCharacter,
   getAllCharactersInfinite,
   getCanonLeads,
+  getCanonAros,
+  getCanonAces,
 };

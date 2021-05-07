@@ -376,6 +376,27 @@ const getCanonLeads = async () => {
   return query.rows;
 };
 
+const getCanonAros = async () => {
+  const q = {
+    text:
+      "select * from characters where romantic_orientation ilike '%arospec%' or romantic_orientation ilike '%demiromantic%' or romantic_orientation ilike '%grayromantic%' or romantic_orientation ilike '%greyromantic%'or romantic_orientation ilike '%grey-romantic%'or romantic_orientation ilike '%gray-romantic%' or romantic_orientation ilike '%aromantic%'",
+  };
+
+  const query = await database.query(q);
+
+  return query.rows;
+};
+
+const getCanonAces = async () => {
+  const q = {
+    text:
+      "select * from characters where sexual_orientation ilike '%acespec%' or sexual_orientation ilike '%demisexual%' or sexual_orientation ilike '%grayasexual%' or sexual_orientation ilike '%asexual%'",
+  };
+
+  const query = await database.query(q);
+  return query.rows;
+};
+
 module.exports = {
   addCharacter,
   getCharacter,
@@ -388,4 +409,6 @@ module.exports = {
   searchCharactersPaginated,
   searchSingleField,
   getCanonLeads,
+  getCanonAros,
+  getCanonAces,
 };
